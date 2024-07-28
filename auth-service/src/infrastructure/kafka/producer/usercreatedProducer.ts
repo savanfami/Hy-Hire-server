@@ -5,6 +5,7 @@ export default async (data:UserEntity)=>{
     try{
 
         console.log('kafka data producer runninig',data)
+        await producer.connect()
         const message=[{
             topic:'notification-service-topic',
             messages:[{
@@ -17,7 +18,7 @@ export default async (data:UserEntity)=>{
         console.log('producer sended',message)
 
     }catch(error){
-        console.log('kafka producer error')
+        console.log('kafka producer error',error)
         throw error 
     }finally{
         await producer.disconnect()

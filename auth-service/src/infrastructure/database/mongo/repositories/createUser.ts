@@ -31,7 +31,7 @@ export const signup = async (
       const saveOtp=await storeOtp(res.email,res.otp)
 console.log(saveOtp,"save otppppppppppp")
 
-      if (res) {
+      if (res&&saveOtp) {
         return res as UserEntity;
       } else {
         throw new Error("signup failed");
