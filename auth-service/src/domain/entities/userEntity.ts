@@ -12,10 +12,10 @@ export interface UserEntity{
     username:string;
     email:string;
     password:string;
-    confirmPassword:string
+    confirmPassword?:string
     phone?:number;
-    role:Role;
+    role?:Role;
     isBlocked?:boolean;
     otp?:string;
-    createdAt:Date
+    createdAt?:Date
 }

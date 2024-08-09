@@ -3,8 +3,8 @@ import { Client } from "./redisClient";
 export const storeOtp = async(email: string, otp: string):Promise<string|null> => {
     try{
         const key = `otp:${email}`
-        const ttl = 120;
-        // console.log(key,"keyyyyy")
+        const ttl = 600;
+        console.log(key,"keyyyyy")
 
         await Client.set(key,otp)
     //   console.log(setotp,"settedand saved otp")

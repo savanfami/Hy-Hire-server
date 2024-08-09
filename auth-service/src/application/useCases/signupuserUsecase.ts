@@ -8,11 +8,9 @@ export const signupuserUseCase = (dependencies: IDependencies) => {
   return {
     execute: async (data: UserEntity) => {
       try {
-
-        return await signup(data)
-
+        return await signup(data);
       } catch (error) {
-        throw error
+        throw error;
       }
     },
   };

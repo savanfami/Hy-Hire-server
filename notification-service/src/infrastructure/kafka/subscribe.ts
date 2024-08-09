@@ -2,14 +2,20 @@ import userCreatedconsumer from "./consumer/userCreatedconsumer";
 
 
 interface IUserEvents{
-    user_created(data:string):Promise<void>;
+    otp_created(data:IData):Promise<void>;
 }
 
 
-export interface INotificationSubscriber extends Pick<IUserEvents,'user_created'>{}
+export interface INotificationSubscriber extends Pick<IUserEvents,'otp_created'>{}
 
 export const createSubscriber=():INotificationSubscriber=>{
     return {
-        user_created:userCreatedconsumer
+        otp_created:userCreatedconsumer
     }
+}
+
+export interface IData{
+    email:string;
+    otp:string;
+    username:string
 }

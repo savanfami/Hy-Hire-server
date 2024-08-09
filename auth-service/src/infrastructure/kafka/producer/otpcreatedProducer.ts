@@ -7,9 +7,9 @@ export default async (data:UserEntity)=>{
         console.log('kafka data producer runninig',data)
         await producer.connect()
         const message=[{
-            topic:'user-service-topic',
+            topic:'notification-service-topic',
             messages:[{
-                key:'user_created',
+                key:'otp_created',
                 value:JSON.stringify(data)
             }]
         }]

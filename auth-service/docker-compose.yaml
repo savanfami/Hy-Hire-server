@@ -5,4 +5,4 @@ services:
     container_name: redistack
     ports:
       - "6379:6379"
-      - "4002:4001"
+      # - "4002:4001"

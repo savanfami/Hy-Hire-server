@@ -1,13 +1,11 @@
 import { generateVerificationMail } from '../../mail/generateVerificationMail'
+import { IData } from '../subscribe'
 
-// interface IUserCreatedData {
-//     email: string;
-//     otp: string;
-//   }
+
 
 
 export default async(
-    data:any
+    data:IData
     
 )=>{
     try{

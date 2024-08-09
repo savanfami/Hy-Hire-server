@@ -4,7 +4,6 @@ import morgan from 'morgan'
 import cors from 'cors';
 import proxy from "express-http-proxy";
 import { config } from "dotenv";
-
 config()
 const app=express()
 const PORT:number=Number(process.env.PORT||8080)
@@ -17,9 +16,9 @@ app.use(morgan('tiny'))
 
 const corsOptions={
    origin:'http://localhost:5173',
-   methods:"GET,HEAD,PUT,PATCH,POST,DELETE",
+   methods:["GET,PUT,PATCH,POST,DELETE"],
    credentials:true,
-}
+} 
 
 app.use(cors(corsOptions))
 

@@ -1,7 +1,17 @@
-import { Schema, model } from "mongoose";
-import { UserEntity } from "domain/entities"; 
+import {  ObjectId, Schema, model } from "mongoose";
+import bcrypt from 'bcrypt' 
 
-const userSchema = new Schema({
+interface IAuth  {
+    _id?:ObjectId
+    username: string,
+    email: string,
+    password: string,
+    role: string
+    isBlocked: boolean,
+    matchPassword(enteredPassword: string): Promise<boolean>
+}
+
+const userSchema = new Schema<IAuth>({
     username: {
         type: String,
         required: true
@@ -23,12 +33,19 @@ const userSchema = new Schema({
     isBlocked: {
         type: Boolean,
         default: false
-    },
-    otp: {
-        type: String
     }
 }, {
     timestamps: true
 })
 
-export const usermodel= model<UserEntity>('users', userSchema);
+userSchema.methods.matchPassword=async function (enteredPassword:string){
+    return await bcrypt.compare(enteredPassword,this.password)
+}
+
+userSchema.pre('save',async function (next) {
+    const salt=await bcrypt.genSalt(10)
+    this.password=await bcrypt.hash(this.password,salt)
+    next()
+})
+
+export const usermodel= model<IAuth>('users', userSchema);
