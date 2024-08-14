@@ -1,4 +1,3 @@
-// import { PORT } from "config/envConfig/config";
 import * as server from "../src/presentation/server";
 import { connectDB } from "./config/envConfig/config";
 (async () => {

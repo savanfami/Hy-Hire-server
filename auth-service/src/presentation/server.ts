@@ -9,12 +9,11 @@ import { PORT } from "../config/envConfig/config";
 dotenv.config()
 
 const app:Application=express()
-
+ 
 app.use(express.json())
 app.use(express.urlencoded({extended:true}))
 app.use(cookieParser())
 app.use(morgan('dev'))
-
 
 // app.use('/api/auth',router(dependencies))
 app.use('/',router(dependencies))

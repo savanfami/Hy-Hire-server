@@ -11,6 +11,11 @@ import { startConsumer,stopConsumer } from './infrastructure/kafka/consumer/cons
         process.on("SIGINT",async()=>{
             console.log('server shutting down');
             stopConsumer();
+            process.exit();
         })
     }
 })()
+
+
+
+

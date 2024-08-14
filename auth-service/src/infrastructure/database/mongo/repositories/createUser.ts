@@ -6,7 +6,7 @@ import { storeOtp } from "../../redis/saveOtp";
 
 export const signup = async (data: UserEntity): Promise<UserEntity | null> => {
   try {
-    const { email, password, username, role } = data;
+    const { email, password, name, role } = data;
     let existingUser = await usermodel.findOne({ email });
     if (existingUser) {
       // throw new CustomError();
@@ -16,7 +16,7 @@ export const signup = async (data: UserEntity): Promise<UserEntity | null> => {
     const otp = generateOtp();
     const res = {
       email,
-      username,
+      name,
       otp,
       role,
       password,

@@ -12,9 +12,9 @@ export const verifyOtpController = (dependencies: IDependencies) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
 
-      const { username, email, password, otp,role } = req.body;
+      const { name, email, password, otp,role } = req.body;
       const userEntity: UserEntity = {
-        username,
+        name,
         email,
         password,
         otp,
@@ -29,29 +29,19 @@ export const verifyOtpController = (dependencies: IDependencies) => {
             console.log('user created producer sending')
             const token = generateToken({ _id: String(data?._id), email: data?.email, role: String(data?.role), exp:Math.floor(Date.now()/1000)+(24*60*60) ?? '' })
             console.log(token,'jwt token')
-            return res.status(200).cookie('access_token', token, { maxAge: 60 * 60 * 60 * 1000 }).json({
+            res.cookie('access_token', token, {
+              maxAge: 24 * 60 * 60 * 1000,
+          })
+            return res.status(200).json({
               success: true,
               data: {
-                username: data.username,
+                name: data.name,
                 email: data.email,
+                role:data.role
               },
               message: "OTP verified successfully",
             });
             
-
-        // return res.status(200).json({
-        //   success: true,
-        //   data: data,
-        //   message: "otp verified successfully",
-        // });
-            // return res.status(200).json({
-            //     success: true,
-            //     data: {
-            //       username:data.username,
-            //       email:data.email,
-            //     },
-            //     message: "otp verified successfully",
-            //   });
         }catch(error){
             console.log('something happened in producing')
             return res.json({success:false,message:"something wrong in user creation"})

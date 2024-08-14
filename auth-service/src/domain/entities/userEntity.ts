@@ -1,6 +1,6 @@
 import { ObjectId } from "mongoose";
 
-enum Role {
+export enum Role {
     user='user',
     admin='admin',
     company='company'
@@ -9,7 +9,7 @@ enum Role {
 
 export interface UserEntity{
     _id?:ObjectId;
-    username:string;
+    name:string;
     email:string;
     password:string;
     confirmPassword?:string

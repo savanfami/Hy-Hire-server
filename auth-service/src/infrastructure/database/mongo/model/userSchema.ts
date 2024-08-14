@@ -1,18 +1,19 @@
-import {  ObjectId, Schema, model } from "mongoose";
+import {   ObjectId,Schema ,model} from "mongoose";
 import bcrypt from 'bcrypt' 
+import { Role } from "../../../../domain/entities/userEntity";
 
 interface IAuth  {
-    _id?:ObjectId
-    username: string,
+    _id?:ObjectId;
+    name: string,
     email: string,
     password: string,
-    role: string
+    role: Role
     isBlocked: boolean,
     matchPassword(enteredPassword: string): Promise<boolean>
 }
 
 const userSchema = new Schema<IAuth>({
-    username: {
+    name: {
         type: String,
         required: true
     },
@@ -27,8 +28,8 @@ const userSchema = new Schema<IAuth>({
     },
     role: {
         type: String,
-        enum: ['user', 'company', 'admin'],
-        default: 'user'
+        enum: Object.values(Role),
+        default: Role.user
     },
     isBlocked: {
         type: Boolean,
@@ -48,4 +49,4 @@ userSchema.pre('save',async function (next) {
     next()
 })
 
-export const usermodel= model<IAuth>('users', userSchema);
+export const usermodel= model<IAuth>('auth', userSchema);

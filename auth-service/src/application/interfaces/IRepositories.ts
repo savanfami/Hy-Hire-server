@@ -5,4 +5,5 @@ export interface IRepositories{
     verifyOtp:(data:UserEntity)=>Promise<UserEntity|null>
     userLogin:(email:string,password:string)=>Promise<UserEntity|null>
     checkEmail:(email:string)=>Promise<boolean>
+    findUserById:(id:string)=>Promise<UserEntity|null>
 }

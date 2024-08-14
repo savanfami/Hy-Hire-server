@@ -17,5 +17,5 @@ export const createSubscriber=():INotificationSubscriber=>{
 export interface IData{
     email:string;
     otp:string;
-    username:string
+    name:string
 }

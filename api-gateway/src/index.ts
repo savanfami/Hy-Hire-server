@@ -14,11 +14,12 @@ app.use(morgan('tiny'))
 
 
 
-const corsOptions={
-   origin:'http://localhost:5173',
-   methods:["GET,PUT,PATCH,POST,DELETE"],
-   credentials:true,
-} 
+const corsOptions = {
+    origin: 'http://localhost:5173',
+    methods: ["GET", "PUT", "PATCH", "POST", "DELETE"],
+    credentials: true,
+  };
+  
 
 app.use(cors(corsOptions))
 

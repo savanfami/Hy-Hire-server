@@ -18,7 +18,7 @@ export const verifyOtp = async (
     }
 
     const user = await usermodel.create({
-      username: data.username,
+      name: data.name,
       email: data.email,
       password: data.password,
       role: data.role,

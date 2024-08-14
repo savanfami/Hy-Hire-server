@@ -1,5 +1,6 @@
-// export * from './IloginuserUsecase'
 export * from './IsignupuserUsecase'
 export * from './IverifyotpUsecase'
 export * from './IloginuserUsecase'
 export * from './IverifyemailUsecase'
+export * from './IfindUserByIdUsecase'
+export * from './IsignupCompanyUsecase'

@@ -14,4 +14,4 @@ app.listen(PORT,()=>{
     console.log(`notification service running at http://localhost${PORT}`);
 })
 
-export default app
+export default app 

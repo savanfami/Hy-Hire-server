@@ -13,7 +13,7 @@ export const connectDB = async () => {
     if (client) {
       console.log(`
         -----------------------------------
-        -     AUTH SRV MONGODB CONNECTED  - 
+        -     AUTH SRV MONGODB CONNECTED  -
         -----------------------------------
       `);
     } else { 
@@ -21,7 +21,8 @@ export const connectDB = async () => {
       process.exit(1);
     }
   } catch (error) {
-    console.error('Error connecting to MongoDB:', error);
+    console.error('Error connecting to MongoDb:', error);
     process.exit(1);
   }
 };
+ 
