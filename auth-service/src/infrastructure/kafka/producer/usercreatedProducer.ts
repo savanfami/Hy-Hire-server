@@ -15,6 +15,7 @@ export default async (data: UserEntity) => {
             topic = 'user-service-topic';
             key = 'user_created';
         } else if (data.role === 'company') {
+            console.log('inside company created role')
             topic = 'company-service-topic';
             key = 'company_created';
         } else {

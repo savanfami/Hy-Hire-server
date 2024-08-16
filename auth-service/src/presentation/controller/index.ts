@@ -3,6 +3,7 @@ import { signupController } from "./signup";
 import { verifyOtpController } from "./verifyOtp";
 import { loginContoller } from "./login";
 import {getUserController} from './getUser'
+import { logOutController } from "./logout";
 
 
 
@@ -13,5 +14,6 @@ export const controller = (dependencies: IDependencies) => {
     verifyOtp:verifyOtpController(dependencies),
     userLogin:loginContoller(dependencies),
     getUserData:getUserController(dependencies),
+    logOut:logOutController()
   };
 };

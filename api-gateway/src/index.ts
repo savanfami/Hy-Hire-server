@@ -24,7 +24,9 @@ const corsOptions = {
 app.use(cors(corsOptions))
 
 const routeConfigs=[
-    {path:'/api/auth',destination:process.env.AUTH_SERVICE_URL}
+    {path:'/api/auth',destination:process.env.AUTH_SERVICE_URL},
+    {path:'/api/user',destination:process.env.USER_SERVICE_URL}
+    
 ]
 
 console.log(routeConfigs)
@@ -34,6 +36,7 @@ routeConfigs.forEach(route=>{
         app.use(route.path,proxy(route.destination))
     }
 })
+
 
 
 app.listen(PORT,()=>{

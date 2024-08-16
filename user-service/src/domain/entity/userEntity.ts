@@ -1,4 +1,5 @@
-import {} from 'mongoose'
+
+
 
 export interface UserEntity {
     _id?: string,
