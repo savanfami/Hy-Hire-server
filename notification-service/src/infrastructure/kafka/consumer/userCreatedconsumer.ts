@@ -1,4 +1,4 @@
-import { generateVerificationMail } from '../../mail/generateVerificationMail'
+import { generateVerificationMail } from '../../../utils/mailGenerator/generateVerificationMail'
 import { IData } from '../subscribe'
 
 

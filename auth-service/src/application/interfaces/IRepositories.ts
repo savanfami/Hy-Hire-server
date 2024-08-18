@@ -6,4 +6,5 @@ export interface IRepositories{
     userLogin:(email:string,password:string)=>Promise<UserEntity|null>
     checkEmail:(email:string)=>Promise<boolean>
     findUserById:(id:string)=>Promise<UserEntity|null>
+    updatePassword:(email:string,password:string)=>Promise<UserEntity|null>
 }

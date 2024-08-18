@@ -1,4 +1,4 @@
-import {ISigupuserUsecase,IverifyotpUsecase,IloginuserUsecase,IverifyemailUsecase,IfindUserByIdUsecase} from '../../domain/useCaseInterface'
+import {ISigupuserUsecase,IverifyotpUsecase,IloginuserUsecase,IverifyemailUsecase,IfindUserByIdUsecase,IUpdatePasswordUsecase} from '../../domain/useCaseInterface'
 import { IDependencies } from './IDependencies';
 
 export interface IUsecases {
@@ -7,4 +7,5 @@ export interface IUsecases {
     loginuserUsecase:(dependencies:IDependencies)=>IloginuserUsecase;
     findUserByEmailUsecase:(dependencies:IDependencies)=>IverifyemailUsecase;
     findUserByIdUsecase:(dependencies:IDependencies)=>IfindUserByIdUsecase;
+    updatePasswordUsecase:(dependencies:IDependencies)=>IUpdatePasswordUsecase
 }

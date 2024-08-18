@@ -2,9 +2,10 @@ import { IDependencies } from 'application/interfaces/IDependencies'
 import { Router } from 'express'
 import { controller } from '../../presentation/controller'
 import { jwtMiddleware } from '../../utils/middleware/jwtMiddleware'
+import { jwtForgetPasswordMiddleware } from '../../utils/middleware/jwtForgetPasswordVerification'
 
  export const router=(dependencies:IDependencies)=>{
-    const {signup,verifyOtp,userLogin,getUserData,logOut}=controller(dependencies)
+    const {signup,verifyOtp,userLogin,getUserData,logOut,forgotPassword,resetPassword}=controller(dependencies)
 
     const router=Router()
     router.route('/').get(jwtMiddleware,getUserData)
@@ -12,6 +13,8 @@ import { jwtMiddleware } from '../../utils/middleware/jwtMiddleware'
     router.route('/verify-otp').post(verifyOtp)
     router.route('/login').post(userLogin)
     router.route('/logout').get(logOut)
+    router.route('/forgotPassword').post(forgotPassword)
+    router.route('/resetPassword').put(jwtForgetPasswordMiddleware,resetPassword)
     return router
 
 }
