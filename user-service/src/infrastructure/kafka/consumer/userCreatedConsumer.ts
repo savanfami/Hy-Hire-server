@@ -28,6 +28,6 @@ export default async (data:userCreatedpayload)=>{
         console.log('user saved in user service')
 
     }catch(error:any){
-         throw new Error(error.message)
+         throw new Error(error?.message)
     }
 }

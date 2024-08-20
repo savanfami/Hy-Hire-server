@@ -3,6 +3,7 @@ import { IDependencies } from "../../application/interfaces/IDependencies";
 import { UserEntity } from "domain/entities";
 import usercreatedProducer from "../../infrastructure/kafka/producer/usercreatedProducer";
 import { generateToken } from "../../utils/jwt/generateToken";
+import { hashPassword } from "../../utils/common/hashPassword";
 
 
 export const verifyOtpController = (dependencies: IDependencies) => {
@@ -20,6 +21,12 @@ export const verifyOtpController = (dependencies: IDependencies) => {
         otp,
         role
       };
+
+      userEntity.password=await hashPassword(userEntity.password)
+      console.log(userEntity.password)
+     
+   
+
       const data = await verifyotpUsecase(dependencies).execute(userEntity);
       console.log(data,'------');
       
@@ -27,7 +34,7 @@ export const verifyOtpController = (dependencies: IDependencies) => {
         try{
             await usercreatedProducer(data)
             console.log('user created producer sending')
-            const token = generateToken({ _id: String(data?._id), email: data?.email, role: String(data?.role), exp:Math.floor(Date.now()/1000)+(24*60*60) ?? '' })
+            const token = generateToken({ _id: data?.name, email: data?.email, role: String(data?.role), exp:Math.floor(Date.now()/1000)+(24*60*60) ?? '' })
             console.log(token,'jwt token')
             res.cookie('access_token', token, {
               maxAge: 24 * 60 * 60 * 1000,

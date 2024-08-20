@@ -8,7 +8,7 @@ export const userLogin=async (email:string,password:string):Promise<UserEntity|n
 
         const user=await usermodel.findOne({email})
         if(user?.isBlocked){
-            throw new Error ('user has been blocked')
+            throw new Error("Access denied: Your account has been blocked by the Hy-Hire. Please contact support for assistance.");
         }
         if (user) {
             
@@ -21,7 +21,6 @@ export const userLogin=async (email:string,password:string):Promise<UserEntity|n
             throw new Error('user not found')
         }
     }catch(error:any){
-
         throw  Error(error.message)
     }
 }

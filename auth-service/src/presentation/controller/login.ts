@@ -8,6 +8,7 @@ export const loginContoller = (dependencies: IDependencies) => {
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
             const { value, error } = loginValidator.validate(req.body)
+            console.log(req.body,'body from login')
             if (error) {
                 throw new Error(error?.message)
             }
@@ -15,7 +16,7 @@ export const loginContoller = (dependencies: IDependencies) => {
             const result = await loginuserUsecase(dependencies).execute(email, password);
             console.log(result)
             if (result) {
-                const token = generateToken({ _id: String(result?._id), email: result?.email, role: String(result?.role), exp: Math.floor(Date.now() / 1000) + (24 * 60 * 60) ?? '' })
+                const token = generateToken({ _id: result?.name, email: result?.email, role: String(result?.role), exp: Math.floor(Date.now() / 1000) + (24 * 60 * 60) ?? '' })
                 res.cookie('access_token', token, {
                     maxAge: 24 * 60 * 60 * 1000,
                 })

@@ -24,7 +24,7 @@ export const startConsumer=async()=>{
 
         if(subscirberMethod in subscriber){
             await subscriber[subscirberMethod](subcriberData)
-            console.log('subscirbe conmpleted in user service')
+            console.log('subscribe completed in user service')
         }else{
             throw new Error (`method ${subscirberMethod} not found in subscriber`)
         }
