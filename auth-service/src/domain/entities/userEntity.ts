@@ -11,7 +11,7 @@ export interface UserEntity{
     _id?:ObjectId;
     name:string;
     email:string;
-    password:string;
+    password?:string;
     confirmPassword?:string
     phone?:number;
     role?:Role;

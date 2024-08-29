@@ -8,6 +8,7 @@ import { forgotPasswordController } from "./forgotPassword";
 import { resetPasswordController } from "./resetPassword";
 import { googleSignupController } from "./googleSignup";
 import { blockUnblockController } from "./BlockUnblock";
+import { resendOtpController } from "./resendOtp";
 
 
 
@@ -22,6 +23,7 @@ export const controller = (dependencies: IDependencies) => {
     forgotPassword:forgotPasswordController(dependencies),
     resetPassword:resetPasswordController(dependencies),
     googleSignup:googleSignupController(dependencies),
-    blockUnblock:blockUnblockController(dependencies)
+    blockUnblock:blockUnblockController(dependencies),
+    resendOtp:resendOtpController(dependencies)
   };
 };

@@ -5,7 +5,7 @@ import { jwtMiddleware } from '../../utils/middleware/jwtMiddleware'
 import { jwtForgetPasswordMiddleware } from '../../utils/middleware/jwtForgetPasswordVerification'
 
  export const router=(dependencies:IDependencies)=>{
-    const {signup,verifyOtp,userLogin,getUserData,logOut,forgotPassword,resetPassword,googleSignup,blockUnblock}=controller(dependencies)
+    const {signup,verifyOtp,userLogin,getUserData,logOut,forgotPassword,resetPassword,googleSignup,blockUnblock,resendOtp}=controller(dependencies)
 
     const router=Router()
     router.route('/').get(jwtMiddleware,getUserData)
@@ -17,6 +17,7 @@ import { jwtForgetPasswordMiddleware } from '../../utils/middleware/jwtForgetPas
     router.route('/resetPassword').put(jwtForgetPasswordMiddleware,resetPassword)
     router.route('/googleauth').post(googleSignup)
     router.route('/block-unblock/:userId').put(blockUnblock)
+    router.route('/resendOtp').post(resendOtp)
     return router
 
 }

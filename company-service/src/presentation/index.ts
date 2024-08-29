@@ -1,7 +1,9 @@
-import express,{ Application} from 'express'
+import  express,{Application,Request,Response} from "express";
 import { config } from 'dotenv'
 import cookieparser from 'cookie-parser'
 import morgan from 'morgan'
+import { router } from "../infrastructure/routes";
+import { dependencies } from "../config/dependencies";
 config()
 const app:Application=express()
 const PORT=process.env.PORT||8005
@@ -11,6 +13,11 @@ app.use(express.urlencoded({extended:true}))
 app.use(cookieparser())
 app.use(morgan('dev'))
 
+
+app.use('/',router(dependencies))
+app.use('*',(req:Request,res:Response)=>{
+    res.status(404).json({success:false,message:'api not found',status:404})
+})
 
 
 app.listen(PORT,()=>{

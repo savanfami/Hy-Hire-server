@@ -11,7 +11,6 @@ export const googleSignupController = (dependencies: IDependencies) => {
     const { useCases: { findUserByEmailUsecase,createUserUsecase } } = dependencies
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
-            console.log(req.body,'yfytfyttttttttttttttttttt')
             const { name, email, userType } = req.body
             const userExist = await findUserByEmailUsecase(dependencies).execute(email)
             if(userType==='default'&& !userExist){
@@ -27,8 +26,7 @@ export const googleSignupController = (dependencies: IDependencies) => {
                     email,
                     role:userExist?.role
                 },message:'user login successfull'})
-            }else{
-
+            }else{                                                                                                                                                                                                                                                                                                                     
                 const userEntity:UserEntity={
                     name,
                     email,

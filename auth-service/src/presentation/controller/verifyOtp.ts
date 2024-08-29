@@ -1,6 +1,6 @@
 import { NextFunction, Response, Request } from "express";
 import { IDependencies } from "../../application/interfaces/IDependencies";
-import { UserEntity } from "domain/entities";
+// import { UserEntity } from "domain/entities";
 import usercreatedProducer from "../../infrastructure/kafka/producer/usercreatedProducer";
 import { generateToken } from "../../utils/jwt/generateToken";
 import { hashPassword } from "../../utils/common/hashPassword";
@@ -14,10 +14,10 @@ export const verifyOtpController = (dependencies: IDependencies) => {
     try {
 
       const { name, email, password, otp,role } = req.body;
-      const userEntity: UserEntity = {
+      const userEntity = {
         name,
         email,
-        password,
+        password ,
         otp,
         role
       };

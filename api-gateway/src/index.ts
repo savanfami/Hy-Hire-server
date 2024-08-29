@@ -25,7 +25,8 @@ app.use(cors(corsOptions))
 
 const routeConfigs=[
     {path:'/api/auth',destination:process.env.AUTH_SERVICE_URL},
-    {path:'/api/user',destination:process.env.USER_SERVICE_URL}
+    {path:'/api/user',destination:process.env.USER_SERVICE_URL},
+    {path:'/api/company',destination:process.env.COMPANY_SERVICE_URL}
     
 ]
 

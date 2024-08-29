@@ -17,7 +17,7 @@ export const resetPasswordController = (dependencies: IDependencies) => {
         }
         const hashedPassword = await hashPassword(password)
         const updatePassword = await updatePasswordUsecase(dependencies).execute(email, hashedPassword)
-        console.log(updatePassword, 'updated password successfullly', updatePassword)
+        // console.log(updatePassword, 'updated password successfullly', updatePassword)
         if (updatePassword) {
           return res.status(200).json({ success: true, message: 'password changed successfully' })
         } else {

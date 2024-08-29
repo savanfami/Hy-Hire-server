@@ -1,4 +1,4 @@
-import server from './presentation/index'
+        import server from './presentation/index'
 import { connectDB } from "./config/config";
 import { startConsumer,stopConsumer } from './infrastructure/kafka/consumer/consumer';
 
