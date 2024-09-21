@@ -7,3 +7,5 @@ export * from './IsignupCompanyUsecase'
 export * from './IupdatePasswordUsecase'
 export * from './IcreateUserUsecase'
 export * from './IFindbyIdandUpdateUsecase'
+export * from './IAddUserUsecase'
+

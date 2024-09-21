@@ -10,4 +10,5 @@ export interface IUsecases {
     updatePasswordUsecase:(dependencies:IDependencies)=>IUpdatePasswordUsecase;
     createUserUsecase:(dependencies:IDependencies)=>IcreateUserUsecase;
     findByIdandUpdateUsecase:(dependencies:IDependencies)=>IfindbyIdandUpdateUsecase;
+    // addUserUsecase:(depedencies:IDependencies)=>IAddUserUsecase
 }

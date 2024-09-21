@@ -15,6 +15,10 @@ export interface ICompany extends Document {
   icon: string
   profileCompleted: boolean
   socialLinks?: SocialLinks;
+  approvalStatus?: {
+    type: string,
+    enum: ['Approved', 'Rejected', 'Pending', 'Message']
+  }
 }
 
 export interface SocialLinks {
@@ -24,7 +28,7 @@ export interface SocialLinks {
   linkedIn?: string | null;
 }
 
-
+ 
 const CompanySchema: Schema = new Schema({
   name: { type: String, required: true },
   email: { type: String, required: true },
@@ -44,44 +48,27 @@ const CompanySchema: Schema = new Schema({
   profileCompleted: { type: Boolean, default: false },
   socialLinks: {
     instagram: {
-        type: String,
-        default: null,
+      type: String,
+      default: null,
     },
     facebook: {
-        type: String,
-        default: null,
+      type: String,
+      default: null,
     },
     twitter: {
-        type: String,
-        default: null,
+      type: String,
+      default: null,
     },
     linkedIn: {
-        type: String,
-        default: null,
+      type: String,
+      default: null,
     },
-},
-
-
-
-  //   images: [{ type: String,  }],
-  //   website: { type: String },
-  //   Status: { type: String, enum: [ 'active', 'blocked' ] },
-  //   title: { type: String },
-  //   no_of_employees: { type: Number },
-  //   industry: { type: String },
-  //   foundedDate: { type: Date },
-  //   icon: { type: String },
-  //   description: { type: String },
-  //   Contact: {
-  //   },
-  //   benefits: { type: String },
-  //   location: [{ type: String,  }],
-  //   approvalStatus: { type: String, enum: [ 'approved', 'rejected','pending','rejected' ],descripion:String,default:'rejected' },
-  //   social_links: { type: String },
-  //   team: [{ name:String,
-  //     profile:String,
-  //     designation:String
-  //     }],
+  },
+  approvalStatus: {
+    type: String,
+    enum: ['Accepted', 'Rejected', 'Pending', 'Message'],
+    default: 'Pending'
+  }
 }, {
   timestamps: true
 });

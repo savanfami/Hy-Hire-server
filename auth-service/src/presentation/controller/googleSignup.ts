@@ -4,7 +4,8 @@ import { generateToken } from "../../utils/jwt/generateToken";
 import { UserEntity } from "domain/entities";
 import usercreatedProducer from "../../infrastructure/kafka/producer/usercreatedProducer";
 import { ErrorResponse } from "../../utils/common";
-
+import { config } from "dotenv";
+config()
 
 
 export const googleSignupController = (dependencies: IDependencies) => {

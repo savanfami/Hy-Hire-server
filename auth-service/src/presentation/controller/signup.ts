@@ -20,7 +20,6 @@ export const signupController = (dependencies: IDependencies) => {
       if (userExist) {
         return next({ statusCode: 409, message: 'E-mail already in use' });
       }
-
       const result = await signupuserUseCase(dependencies).execute(value);
       if (result) {
         try {

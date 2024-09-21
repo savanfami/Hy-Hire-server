@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from 'express'
 import { IDependencies } from 'application/interfaces/IDependencies'
+import updateCompanyProfileProducer from '../../infrastructure/kafka/producer/companyUpdatedProudcer' 
 
 export const updateProfileController = (dependencies: IDependencies) => {
     const { useCases: { updateProfileUsecase } } = dependencies
@@ -22,7 +23,11 @@ export const updateProfileController = (dependencies: IDependencies) => {
             const data = await updateProfileUsecase(dependencies).execute(datas, email)
             console.log(data, 'updae fdfadsfadsf')
             if (data) {
-
+                try{
+                  await updateCompanyProfileProducer(data)
+                }catch(error:any){
+                    console.log('company updation producer failed', error)
+                } 
                 return res.status(200).json({ success: true, message: 'updated successfully', data })
             } else {
                 throw new Error('data updation failed')
@@ -30,7 +35,7 @@ export const updateProfileController = (dependencies: IDependencies) => {
 
 
         } catch (error) {
-            console.log(error)
+            // console.log(error)
             next(error)
         }
     }

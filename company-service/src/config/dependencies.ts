@@ -5,5 +5,4 @@ import * as repositories from '../infrastructure/database/mongodb/repositories'
 export const dependencies:IDependencies={
    repositories,
    useCases
-
 }

@@ -1,34 +1,69 @@
-import mongoose, {  Schema } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 
 
 const userSchema = new Schema({
-
-    name: {
-        type: String,
-        required: true
-    },
-    email: {
-        type: String,
-        required: true
-    },
-    password: {
-        type: String,
-        required: true
-    },
-    role: {
-        type: String
-    },
-    isBlocked: {
-        type: Boolean,
-        default: false
-    },
-},
+  name: {
+    type: String,
+  },
+  email: {
+    type: String,
+    required: true
+  },
+  password: {
+    type: String,
+  },
+  role: {
+    type: String
+  },
+  isBlocked: {
+    type: Boolean,
+    default: false
+  },
+  location: { type: String, default: '' },
+  image: { type: String, default: '' },
+  phone: { type: String, default: '' },
+  aboutMe: { type: String, default: '' },
+  experiences: [
     {
-        timestamps: true
-
+      working: { type: Boolean },
+      title: { type: String },
+      description: { type: String },
+      company: { type: String },
+      year: { from: Date, to: Date },
     }
+  ],
+  education: [
+    {
+      university: String,
+      course: String,
+      company: String,
+      year: { from: Date, to: Date },
+      description: String,
+    },
+  ],
+  skills: { type: [String], default: [] },
+  socialLinks: {
+    Instagram: {
+      type: String,
+      default: null,
+    },
+    Twitter: {
+      type: String,
+      default: null,
+    },
+    LinkedIn: {
+      type: String,
+      default: null,
+    },
+  },
+  resumes: { type: [String] }
+},
+  {
+    timestamps: true
+  }
 
 )
+
 
 export const userModel = mongoose.model('user', userSchema)

@@ -6,34 +6,28 @@ export interface UserEntity {
     name?: string,
     email?: string,
     password?: string,
+    image?:string
+    location?: string,
     role?: 'user' | 'admin' | 'company',
-    phoneNumber?: number,
+    phone?: number;
+    aboutMe:string;
     isBlocked?: boolean,
-    resume?: string,
     skills?: string[],
     experiences?: {
+        working: string;
         title: string,
         description: string,
-        image: string,
-        location: string,
+        startDate: string,
+        year: { from: Date, to: Date },
     }[],
-    personalsite?: string,
-    socialLink?: string[],
-    coverImage?: string,
-    icon?: string,
-    location?: string,
-    about?: string,
+    socialLinks?: {Instagram:string},
     education?: {
-        university: string; 
+        university: string
         course: string;
-        year: { from: Date; to: Date };
         description: string;
+        year:{from:Date,to:Date} 
     }[],
-    profileCompleted?: boolean
-    dateofbirth?: Date,
-    currengDesignation?: String,
-    resumes?: string[],
-    stage?: string,
+    profileCompleted?: boolean;
+    resumes?:string[];
     savedJobs?: string[],
-    certification?:{title:string,file:string}[]
 }

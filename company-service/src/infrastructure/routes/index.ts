@@ -7,11 +7,13 @@ import { jwtMiddleware } from '../../utils/middleware/jwtMiddleware'
 
 export const router = (dependencies: IDependencies) => {
 
-    const { updateProfile,getCompany,updateSocialLinks,sendRequest } = controller(dependencies)
+    const { updateProfile, getCompany, updateSocialLinks, sendRequest, listRequest, updateRequest } = controller(dependencies)
     const router = Router()
-    router.route('/').get(jwtMiddleware,getCompany)
-    router.route('/overview').post(jwtMiddleware,updateProfile)
-    router.route('/social-links').post(jwtMiddleware,updateSocialLinks)
-    router.route('/company-request').post(jwtMiddleware,sendRequest)
+    router.route('/').get(jwtMiddleware('company'), getCompany)
+    router.route('/overview').post(jwtMiddleware('company'), updateProfile)
+    router.route('/social-links').post(jwtMiddleware('company'), updateSocialLinks)
+    router.route('/company-request').post(jwtMiddleware('company'), sendRequest)
+    router.route('/list-Request').get(jwtMiddleware('admin'),listRequest)
+    router.route('/update-request').patch(updateRequest)
     return router
 }

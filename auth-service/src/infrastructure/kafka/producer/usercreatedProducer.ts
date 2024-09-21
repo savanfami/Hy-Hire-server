@@ -29,7 +29,6 @@ export default async (data: UserEntity) => {
                 value: JSON.stringify(data),
             }],
         }];
-
         console.log('Data message is created');
         await producer.sendBatch({ topicMessages: message });
         console.log('Producer sent', message);

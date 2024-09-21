@@ -19,3 +19,7 @@ export interface UserEntity{
     otp?:string;
     createdAt?:Date
 }
+
+export interface UpdateUserEntity{
+
+}

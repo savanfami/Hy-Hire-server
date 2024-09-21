@@ -9,4 +9,6 @@ export interface IRepositories{
     updatePassword:(email:string,password:string)=>Promise<UserEntity|null>
     createUser:(data:UserEntity)=>Promise<UserEntity|null>
     findByIdandUpdate:(id:string)=>Promise<UserEntity|null>
+    // addUser(data:UserEntity):Promise<boolean|null>
+
 }
