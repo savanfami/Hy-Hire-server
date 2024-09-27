@@ -1,5 +1,5 @@
-import { getalljobInterface } from "utils/types/types";
+import { getalljobInterface, IJobFilterParams } from "utils/types/types";
 
 export interface IgetAllJobUsecase{
-    execute():Promise<getalljobInterface[]|null>
+    execute(data:IJobFilterParams):Promise<getalljobInterface[]|null>
 }

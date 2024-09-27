@@ -9,20 +9,20 @@ export const listJobsController = (dependencies: IDependencies) => {
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
             const query = req.query as unknown as ListJobsQuery;
-            console.log(req.query,'query')
             const { page, search = '', companyId } = query
 
             const pageNumber = parseInt(page as string)
             if (isNaN(pageNumber) || pageNumber <= 0) {
-                return next(ErrorResponse.badRequest('invalid page number'));
+                throw ErrorResponse.badRequest('invalid page number')
             }
             const jobData = await getJobUsecase(dependencies).execute(companyId, pageNumber, search)
+            console.log(jobData,'jobdata')
             if (jobData) {
                 return res.status(200).json(jobData)
             } else {
-               return next(ErrorResponse.notFound('data not found'))
+                throw ErrorResponse.notFound('data not found')
             }
-        } catch (error) {
+        } catch (error) { 
             next(error)
         }
     }

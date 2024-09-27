@@ -11,6 +11,7 @@ export const getAllUser=async():Promise<UserEntity[]|null>=>{
             throw new Error('no users found')
         }
     }catch(error:any){
+        console.log(error)
         throw new Error(error.message)
     }
-}
+}                   

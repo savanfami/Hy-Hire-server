@@ -19,7 +19,7 @@ export const googleSignupController = (dependencies: IDependencies) => {
             }
             if (userExist) {
                 // console.log('already authenticated user')
-                const token = generateToken({ _id: name, email: email, role: String(userExist?.role), exp: Math.floor(Date.now() / 1000) + (24 * 60 * 60) ?? '' })
+                const token = generateToken({ _id: `${userExist._id}`, email: email, role: String(userExist?.role), exp: Math.floor(Date.now() / 1000) + (24 * 60 * 60) ?? '' })
                 // console.log(token, 'token from google signup')
                 res.cookie('access_token',token,{maxAge:24*60*60*1000})
                 return res.status(200).json({success:true,data:{

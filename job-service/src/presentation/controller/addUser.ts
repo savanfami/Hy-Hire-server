@@ -8,15 +8,12 @@ export const addUserController = (dependencies: IDependencies) => {
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
             if (req.body) {
-                console.log(req.body,'bodyydydy')
-                  const updateData=  await addUserUsecase(dependencies).execute(req.body)
-                  if(updateData){
-                    console.log('user creaeted or updated successfully in job service')
-                  }else{
+                const updateData = await addUserUsecase(dependencies).execute(req.body)
+                if (updateData) {
+                    return res.status(200).json({ success: true, message: 'added succeessfully', })
+                } else {
                     throw new Error('user creation or updation failed')
-                  }
-               
-                
+                }
             }
         } catch (error) {
             next(error)

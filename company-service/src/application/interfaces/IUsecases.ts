@@ -1,5 +1,5 @@
 import { IDependencies } from './IDependencies';
-import { IupdateProfileUseCase,IgetCompanyUseCase,IupdateSocialLinks,IcompanyRequestUseCase,IlistRequestUsecase,IupdateRequestUsecase} from "../../domain/useCaseInterface"
+import { IupdateProfileUseCase,IgetCompanyUseCase,IupdateSocialLinks,IcompanyRequestUseCase,IlistRequestUsecase,IupdateRequestUsecase,IgetAllCompanyUsecase} from "../../domain/useCaseInterface"
 
 export interface IUseCases {
     updateProfileUsecase(dependencies:IDependencies): IupdateProfileUseCase
@@ -8,4 +8,5 @@ export interface IUseCases {
     companyRequestUseCase(dependencies:IDependencies):IcompanyRequestUseCase
     listRequestUsecase(dependencies:IDependencies):IlistRequestUsecase
     updateRequestUsecase(dependencies:IDependencies):IupdateRequestUsecase
+    getAllCompanyUsecase(dependencies:IDependencies):IgetAllCompanyUsecase
 }

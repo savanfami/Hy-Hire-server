@@ -7,7 +7,6 @@ export const listRequestController = (dependencies: IDependencies) => {
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
             const data = await listRequestUsecase(dependencies).execute()
-            console.log(data,'daaata')
             if (data) {
                 return res.status(200).json(data )
             } else {

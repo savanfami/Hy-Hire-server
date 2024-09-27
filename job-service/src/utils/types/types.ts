@@ -34,3 +34,19 @@ export interface getalljobInterface{
       socialLinks: SocialLinks,
 }
 }
+
+
+
+export interface IJobFilterParams {
+    page: string;
+    salaryUpto: string|null;
+    jobTypes: string[]|null;
+    datePosted: string | null;
+}
+
+
+export enum Roles{
+    User='user',
+    Admin='admin',
+    Company='company'
+}

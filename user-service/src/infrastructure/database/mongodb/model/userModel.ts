@@ -3,6 +3,7 @@ import mongoose, { Schema } from "mongoose";
 
 
 const userSchema = new Schema({
+  _id:{type:mongoose.Schema.Types.ObjectId},
   name: {
     type: String,
   },
@@ -50,14 +51,15 @@ const userSchema = new Schema({
     },
     Twitter: {
       type: String,
-      default: null,
+      default: null,  
     },
     LinkedIn: {
       type: String,
       default: null,
     },
   },
-  resumes: { type: [String] }
+  resumes: { type: [String] },
+  profileCompleted:{type:Boolean,default:false}
 },
   {
     timestamps: true

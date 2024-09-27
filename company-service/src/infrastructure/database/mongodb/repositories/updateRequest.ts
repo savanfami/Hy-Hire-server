@@ -1,22 +1,36 @@
 // import { approvalModel } from "../model/Approval";
-import { ApprovalStatus } from "utils/types/allTypes";
+import { Approvalstatus, IUpdateRequestPayload, IUpdateRequestResponse } from "../../../../utils/types/allTypes";
 import { companyModel } from "../model/companyModel";
 
-export const updateRequest = async (id: string, status: string): Promise<{email:string,status:ApprovalStatus,name:string}|null> => {
+export const updateRequest = async (id: string, updatePayload: IUpdateRequestPayload): Promise<IUpdateRequestResponse | null> => {
     try {
-          
-        const updatedCompany = await companyModel.findByIdAndUpdate({ _id: id },
-            
-             { $set: { approvalStatus: status } },
-             {new:true})
-         if(updatedCompany){
-            const email=updatedCompany?.email
-            const status=updatedCompany?.approvalStatus  as ApprovalStatus
-            const name=updatedCompany?.name
-            return {email,status,name}
-         }else{
-             throw new Error('error while updating')
-         }
+        let updatedCompany: any
+        if (updatePayload.status === Approvalstatus.REJECTED && updatePayload.reason) {
+            updatedCompany = await companyModel.findByIdAndUpdate({ _id: id },
+                { $set: { approvalStatus: updatePayload.status, rejectionReason: updatePayload.reason } },
+                { new: true }
+            )
+        } else if (updatePayload.status === Approvalstatus.APPROVED) {
+            updatedCompany = await companyModel.findByIdAndUpdate(
+                { _id: id },
+                { $set: { approvalStatus: updatePayload.status } },
+                { new: true }
+            )
+        }
+        if (updatedCompany.approvalStatus === 'Rejected') {
+            const email = updatedCompany?.email;
+            const status = updatedCompany?.approvalStatus;
+            const name = updatedCompany?.name;
+            const reason = updatedCompany?.rejectionReason
+            return { email, status, name, reason }
+        } else if (updatedCompany.approvalStatus === 'Approved') {
+            const email = updatedCompany?.email;
+            const status = updatedCompany?.approvalStatus;
+            const name = updatedCompany?.name;
+            return { email, status, name }
+        } else {
+            return null
+        }
     } catch (error: any) {
         throw new Error(`Failed to update company approval status: ${error.message}`);
     }

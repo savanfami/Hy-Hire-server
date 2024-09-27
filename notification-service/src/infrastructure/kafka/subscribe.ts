@@ -1,12 +1,13 @@
 import { forgotPasswordConsumer } from "./consumer";
 import userCreatedconsumer from "./consumer/userCreatedconsumer";
 import companyVerificationConsumer from "./consumer/companyVerificationConsumer";
+import { IUpdateRequestResponse } from "utils/mailGenerator/Types";
 
 
 interface IUserEvents{
     otp_created(data:IData):Promise<void>;
     forgot_password(data:IForgetData):Promise<void>
-    company_verification(data:IVerificationData):Promise<void>
+    company_verification(data:IUpdateRequestResponse):Promise<void>
 }
 
 

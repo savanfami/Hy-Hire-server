@@ -18,7 +18,8 @@ export interface ICompany extends Document {
   approvalStatus?: {
     type: string,
     enum: ['Approved', 'Rejected', 'Pending', 'Message']
-  }
+  },
+  rejectionReason?: string;
 }
 
 export interface SocialLinks {
@@ -68,8 +69,11 @@ const CompanySchema: Schema = new Schema({
     type: String,
     enum: ['Accepted', 'Rejected', 'Pending', 'Message'],
     default: 'Pending'
-  }
-}, {
+  },
+  rejectionReason: {
+    type: String,
+    default:null
+  },}, {
   timestamps: true
 });
 

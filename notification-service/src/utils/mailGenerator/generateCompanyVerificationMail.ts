@@ -1,10 +1,11 @@
 import nodemailer from 'nodemailer'
 import { config } from 'dotenv';
+import { IUpdateRequestResponse,ApprovalStatus } from './Types';
 config()
 
-export const generateCompanyVerificationMail = async (data): Promise<void> => {
+export const generateCompanyVerificationMail = async (data: IUpdateRequestResponse): Promise<void> => {
     try {
-
+ console.log(data,'datadsajlsdjlfsdjlkfdjflksdafjsdlkfsdalsfsdokljfjksdflsdafjlkasdf')
         const transporter = nodemailer.createTransport({
             host: process.env.MAIL_HOST,
             secure: false,
@@ -23,78 +24,113 @@ export const generateCompanyVerificationMail = async (data): Promise<void> => {
     <title>Your Company Approval Status</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             line-height: 1.6;
             color: #333;
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
+            background-color: #f4f7f9;
+            margin: 0;
+            padding: 0;
         }
         .container {
-            background-color: #f9f9f9;
-            border-radius: 5px;
+            max-width: 600px;
+            margin: 20px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .header {
+            background-color: #3498db;
+            color: #ffffff;
             padding: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        .content {
+            padding: 30px;
         }
         h1 {
-            color: #2c3e50;
-            text-align: center;
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
         }
         .status-container {
             text-align: center;
             margin: 30px 0;
         }
         .status-label {
-            font-size: 24px;
+            font-size: 28px;
             font-weight: bold;
             letter-spacing: 2px;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 12px 24px;
+            border-radius: 50px;
             display: inline-block;
+            text-transform: uppercase;
         }
-        .status-label.approved {
+        .status-label.Approved {
             background-color: #2ecc71;
-            color: #fff;
+            color: #ffffff;
         }
-        .status-label.rejected {
+        .status-label.Rejected {
             background-color: #e74c3c;
-            color: #fff;
+            color: #ffffff;
+        }
+        .status-label.Pending {
+            background-color: #f39c12;
+            color: #ffffff;
+        }
+        .status-label.Message {
+            background-color: #3498db;
+            color: #ffffff;
+        }
+        .reason {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            padding: 15px;
+            margin-top: 20px;
+            color: #721c24;
         }
         .instructions {
-            text-align: center;
             margin-top: 20px;
             font-style: italic;
+            text-align: center;
         }
         .footer {
-            margin-top: 30px;
+            background-color: #34495e;
+            color: #ecf0f1;
             text-align: center;
+            padding: 15px;
             font-size: 12px;
-            color: #7f8c8d;
         }
-
-        .status-label.Approved {
-    color: green;
-}
-
-.status-label.Rejected {
-    color: red;
-}
     </style>
 </head>
-<body>
+body>
     <div class="container">
-        <h1>Your Company Approval Status</h1>
-        <p>Dear ${data.name},</p>
-        <p>We have reviewed your company's application and the status is as follows:</p>
-       <div class="status-container">
-        <div class="status-label ${data.status === 'Approved' ? 'Approved' : 'Rejected'}">${data.status}</div>
-    </div>
-        <p class="instructions">
-            ${data.status === 'Approved' ? 'Your company is now approved to post jobs on Hy-Hire.' : 'Your company has been rejected. Please review the feedback and reapply when you have addressed the issues.'}
-        </p>
-        <p>If you have any questions or concerns, please don't hesitate to contact us.</p>
+        <div class="header">
+            <h1>Your Company Approval Status</h1>
+        </div>
+        <div class="content">
+            <p>Dear ${data.name},</p>
+            <p>We have reviewed your company's application and the status is as follows:</p>
+            <div class="status-container">
+                <div class="status-label ${data.status}">${data.status}</div>
+            </div>
+            ${data.status ===ApprovalStatus.REJECTED  && data.reason ? `
+            <div class="reason">
+                <strong>Reason for Rejection:</strong>
+                <p>${data.reason}</p>
+            </div>
+            ` : ''}
+            <p class="instructions">
+                ${data.status === ApprovalStatus.APPROVED
+                ? 'Congratulations! Your company is now approved to post jobs on Hy-Hire. You can start using our platform to find great talent.'
+                : 'We appreciate your interest in Hy-Hire. Please review the feedback above and consider reapplying once you have addressed these issues.'
+                   }
+            </p>
+            <p>If you have any questions or need further clarification, please don't hesitate to contact our support team.</p>
+        </div>
         <div class="footer">
-            <p>This is an automated message, please do not reply to this email.</p>
+            <p>This is an automated message. Please do not reply to this email.</p>
             <p>&copy; 2024 Hy-Hire. All rights reserved.</p>
         </div>
     </div>

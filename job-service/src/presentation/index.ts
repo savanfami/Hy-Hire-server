@@ -14,9 +14,9 @@ app.use(express.urlencoded({extended:true}))
 app.use(cookieparser())
 app.use(morgan('dev'))
 
-app.use(errorHandler)
 
 app.use('/',router(dependencies))
+app.use(errorHandler)
 app.use('*',(req:Request,res:Response)=>{
     res.status(404).json({success:false,message:'api not found',status:404})
 })

@@ -23,7 +23,7 @@ return async (req: Request, res: Response, next: NextFunction): Promise<void> =>
     if (!token) {
         res.status(401).json({ message: 'no token found' });
         return;
-    }
+    } 
     try {
         const secretKey = process.env.ACCESS_TOKEN_SECRET;
         if (!secretKey) {

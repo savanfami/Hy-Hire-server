@@ -1,3 +1,4 @@
+import { ErrorResponse } from "../../../../utils/common/ErrorResponse";
 import { userModel } from "../model/userMode";
 import { UserEntity } from "domain/entities/userEntity";
 
@@ -6,7 +7,6 @@ export const addUser = async (data: Partial<UserEntity>): Promise<boolean | null
         const updateData: Partial<UserEntity> = {};
         const email = data?.email
         if (!email) {
-            console.log('Email is required');
             return null;
         }
         if (data.name) updateData.name = data.name;
@@ -21,21 +21,18 @@ export const addUser = async (data: Partial<UserEntity>): Promise<boolean | null
         if (data.skills) updateData.skills = data.skills;
         if (data.socialLinks) updateData.socialLinks = data.socialLinks;
         if (data.resumes) updateData.resumes = data.resumes;
+        if (data.profileCompleted) updateData.profileCompleted = data.profileCompleted
         const result = await userModel.findOneAndUpdate(
             { email },
             { $set: updateData },
             { new: true, upsert: true, runValidators: true, setDefaultsOnInsert: true }
         );
         if (!result) {
-            console.log('failed to update or create');  
             return null;
-        }else{
-            console.log('user creatd or updted successfully')
+        } else {
             return true
         }
-      
     } catch (error: any) {
-        console.error('Error in addUser:', error);
-        throw new Error(`Failed to  add or update profile: ${error.message}`);
+        throw new ErrorResponse(500,`Failed to  add or update profile: ${error.message}`);
     }
 };

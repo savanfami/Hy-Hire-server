@@ -3,6 +3,8 @@ import { postJobController } from "./postJobController";
 import { listJobsController } from "./listJobs";
 import { getAllJobsController } from "./getAllJobs";
 import { addUserController } from "./addUser";
+import { applyJobController } from "./applyJob";
+import { getAllUserController } from "./getAllUser";
 
 
 export const controller=(dependencies:IDependencies)=>{
@@ -10,6 +12,8 @@ export const controller=(dependencies:IDependencies)=>{
         jobPost:postJobController(dependencies),
         listJobs:listJobsController(dependencies),
         getAllJobs:getAllJobsController(dependencies),
-        addUser:addUserController(dependencies)
+        addUser:addUserController(dependencies),
+        applyJob:applyJobController(dependencies),
+        getAllUser:getAllUserController(dependencies)
     }
 }

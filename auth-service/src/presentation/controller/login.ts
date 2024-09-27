@@ -14,9 +14,8 @@ export const loginContoller = (dependencies: IDependencies) => {
             }
             const { email, password } = value
             const result = await loginuserUsecase(dependencies).execute(email, password);
-            console.log(result)
             if (result) {
-                const token = generateToken({ _id: result?.name, email: result?.email, role: String(result?.role), exp: Math.floor(Date.now() / 1000) + (24 * 60 * 60) ?? '' })
+                const token = generateToken({ _id:`${result?._id}`, email: result?.email, role: String(result?.role), exp: Math.floor(Date.now() / 1000) + (24 * 60 * 60) ?? '' })
                 res.cookie('access_token', token, {
                     maxAge: 24 * 60 * 60 * 1000,
                 })

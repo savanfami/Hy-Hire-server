@@ -8,6 +8,7 @@ export class ErrorResponse extends Error {
         this.message = msg;
     }
 
+
     static badRequest(msg: string): ErrorResponse {
         return new ErrorResponse(400, msg || "bad request")
     }

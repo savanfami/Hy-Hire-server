@@ -17,7 +17,6 @@ export const startConsumer=async()=>{
 
   await consumer.run({
     eachMessage: async ({message }) => {
-        console.log(message,'message recieved in consumer')
         const {key,value}=message
         console.log(String(key),'key',String(value),'value')
         const subscirberMethod=String(key) as keyof INotificationSubscriber

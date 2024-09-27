@@ -1,8 +1,8 @@
 // import sendForgotPasswordMail from "../../services/mail/sendForgotPasswordMail"
+import { IUpdateRequestResponse } from "utils/mailGenerator/Types"
 import { generateCompanyVerificationMail } from "../../../utils/mailGenerator/generateCompanyVerificationMail"
-import { IVerificationData } from "../subscribe"
 
-export default async (data:IVerificationData):Promise<void>=>{
+export default async (data:IUpdateRequestResponse):Promise<void>=>{
     try{
  
     await generateCompanyVerificationMail(data)

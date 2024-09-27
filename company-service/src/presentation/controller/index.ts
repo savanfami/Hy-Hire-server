@@ -5,6 +5,7 @@ import { updateSocialLinksController } from "./updateSocialLinks";
 import { companyRequestController } from "./companyRequest";
 import { listRequestController } from "./companyListController";
 import { updateRequestController } from "./updateRequestController";
+import { getAllCompanyController } from "./getAllCompany";
 
 export const controller=(dependencies:IDependencies)=>{
     return {
@@ -13,6 +14,7 @@ export const controller=(dependencies:IDependencies)=>{
         updateSocialLinks:updateSocialLinksController(dependencies),
         sendRequest:companyRequestController(dependencies),
         listRequest:listRequestController(dependencies),
-        updateRequest:updateRequestController(dependencies)
+        updateRequest:updateRequestController(dependencies),
+        getAllCompany:getAllCompanyController(dependencies)
     }
-}
+} 

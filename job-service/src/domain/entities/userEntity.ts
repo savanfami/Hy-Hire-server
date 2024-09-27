@@ -10,7 +10,7 @@ export interface UserEntity {
     location?: string,
     role?: 'user' | 'admin' | 'company',
     phone?: number;
-    aboutMe: string;
+    aboutMe?: string;
     isBlocked?: boolean,
     skills?: string[],
     experiences?: {
