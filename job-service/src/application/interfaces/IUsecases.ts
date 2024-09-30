@@ -1,5 +1,5 @@
 import { IDependencies } from "./IDependencies";
-import { IgetJobUsecase, IpostJobUsecase,IgetAllJobUsecase,IAddUserUsecase,IapplyForJobUsecase, IGetAllUserUsecase } from "domain/useCaseInterface";
+import { IgetJobUsecase, IpostJobUsecase,IgetAllJobUsecase,IAddUserUsecase,IapplyForJobUsecase, IGetAllUserUsecase,IDeleteJobUsecase } from "domain/useCaseInterface";
 
 
 export interface IUseCases{
@@ -9,4 +9,5 @@ export interface IUseCases{
     addUserUsecase:(depedencies:IDependencies)=>IAddUserUsecase
     applyForJobUsecase:(depedencies:IDependencies)=>IapplyForJobUsecase
     getAllUserUsecase:(depedencies:IDependencies)=>IGetAllUserUsecase
+    deleteJobUsecase:(dependenciese:IDependencies)=>IDeleteJobUsecase
 }

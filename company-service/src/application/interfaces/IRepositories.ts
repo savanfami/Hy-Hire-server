@@ -1,6 +1,6 @@
 import { CompanyEntity } from "domain/entities/index";
 import { SocialLinks } from "infrastructure/database/mongodb/model/companyModel";
-import {  IUpdateRequestPayload, IUpdateRequestResponse } from "utils/types/allTypes";
+import {  ICompanySearchParams, IPaginatedCompaniesResponse, IUpdateRequestPayload, IUpdateRequestResponse } from "utils/types/allTypes";
 
 
 
@@ -11,5 +11,5 @@ export interface IRepositories {
     sendRequest:(email:string)=>Promise<boolean|null> 
     listRequest:()=>Promise<CompanyEntity|null>
     updateRequest:(id:string,updatePayload:IUpdateRequestPayload)=>Promise<IUpdateRequestResponse|null>
-    getAllCompany:()=>Promise<CompanyEntity[]|null>
+    getAllCompany:(data:ICompanySearchParams)=>Promise<IPaginatedCompaniesResponse|null>
 }

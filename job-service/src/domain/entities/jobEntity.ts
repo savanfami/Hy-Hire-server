@@ -5,8 +5,8 @@ export interface jobEntity{
     jobTitle:string;
     jobDescription:string;
     joblocation:string;
-    salaryMax:string;
-    salaryMin:string;
+    salaryMax:number;
+    salaryMin:number;
     companyId:mongoose.Schema.Types.ObjectId;
     endDate:Date;
     experience:string;

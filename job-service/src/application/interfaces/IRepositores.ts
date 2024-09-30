@@ -10,4 +10,5 @@ export interface IRepositories{
     addUser(data:UserEntity):Promise<boolean|null>
     applyJob(companyId:string,userId:string,jobId:string,resume:string):Promise<boolean|null>
     getAllUser():Promise<UserEntity[]|null>
+    deleteJobs(jobId:string):Promise<boolean|null>
 }

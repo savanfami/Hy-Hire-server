@@ -6,10 +6,10 @@ import { Roles } from '../../utils/types/types'
 
 
 export const router = (dependencies: IDependencies) => {
-    const { jobPost, listJobs, getAllJobs, addUser, applyJob,getAllUser} = controller(dependencies)
+    const { jobPost, listJobs, getAllJobs, addUser, applyJob,getAllUser,deleteJob} = controller(dependencies)
     const router = Router()
     router.route('/post-job').post(jwtMiddleware(Roles.Company), jobPost)
-    router.route('/list-jobs').get(listJobs)
+    router.route('/list-jobs').get(jwtMiddleware(Roles.Company),listJobs).delete(jwtMiddleware(Roles.Company),deleteJob)
     router.route('/get-alljobs').get(getAllJobs)
     router.route('/add-user').post(addUser)
     router.route('/apply-job').post(jwtMiddleware(Roles.User), applyJob)

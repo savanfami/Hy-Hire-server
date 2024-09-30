@@ -1,6 +1,7 @@
 import { CompanyEntity } from "domain/entities";
+import { ICompanySearchParams, IPaginatedCompaniesResponse } from "utils/types/allTypes";
 
 
 export interface IgetAllCompanyUsecase{
-    execute():Promise<CompanyEntity[]|null>
+    execute(data:ICompanySearchParams):Promise<IPaginatedCompaniesResponse|null>
 }

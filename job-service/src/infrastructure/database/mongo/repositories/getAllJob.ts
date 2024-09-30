@@ -20,7 +20,6 @@ export const getAllJobs = async (data: IJobFilterParams): Promise<any | null> =>
     if (data.jobTypes && data.jobTypes.length > 0) {
       matchCriteria.employmentType = { $in: data.jobTypes };
     }
-
     if (data.datePosted) {
       const dateNow = new Date();
       switch (data.datePosted) {

@@ -5,10 +5,10 @@ export const updateProfile = async (email: string, data: Partial<UserEntity>): P
     try {
         const updateData: Partial<UserEntity> = {};
         if (data.name) updateData.name = data.name;
-        if (data.location) updateData.location = data.location;
+        if (data.location!==undefined) updateData.location = data.location;
         if (data.image) updateData.image = data.image;
-        if (data.phone) updateData.phone = data.phone;
-        if (data.aboutMe) updateData.aboutMe = data.aboutMe;
+        if (data.phone!==undefined) updateData.phone = data.phone;
+        if (data.aboutMe!==undefined) updateData.aboutMe = data.aboutMe;
         if (data.experiences) updateData.experiences = data.experiences;
         if (data.education) updateData.education = data.education;
         if (data.skills) updateData.skills = data.skills;

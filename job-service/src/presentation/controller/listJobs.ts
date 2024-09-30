@@ -16,7 +16,6 @@ export const listJobsController = (dependencies: IDependencies) => {
                 throw ErrorResponse.badRequest('invalid page number')
             }
             const jobData = await getJobUsecase(dependencies).execute(companyId, pageNumber, search)
-            console.log(jobData,'jobdata')
             if (jobData) {
                 return res.status(200).json(jobData)
             } else {

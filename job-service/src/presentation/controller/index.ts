@@ -5,6 +5,7 @@ import { getAllJobsController } from "./getAllJobs";
 import { addUserController } from "./addUser";
 import { applyJobController } from "./applyJob";
 import { getAllUserController } from "./getAllUser";
+import { deleteJobsController } from "./deleteJob";
 
 
 export const controller=(dependencies:IDependencies)=>{
@@ -14,6 +15,7 @@ export const controller=(dependencies:IDependencies)=>{
         getAllJobs:getAllJobsController(dependencies),
         addUser:addUserController(dependencies),
         applyJob:applyJobController(dependencies),
-        getAllUser:getAllUserController(dependencies)
+        getAllUser:getAllUserController(dependencies),
+        deleteJob:deleteJobsController(dependencies)
     }
 }

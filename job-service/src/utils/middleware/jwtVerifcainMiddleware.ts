@@ -25,7 +25,6 @@ export const jwtMiddleware = (requiredRole?: string) => {
             res.status(401).json({ message: 'no token found' });
             return;
         }
-
         try {
             const secretKey = process.env.ACCESS_TOKEN_SECRET;
             if (!secretKey) {
