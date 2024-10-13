@@ -12,4 +12,5 @@ export interface IRepositories {
     listRequest:()=>Promise<CompanyEntity|null>
     updateRequest:(id:string,updatePayload:IUpdateRequestPayload)=>Promise<IUpdateRequestResponse|null>
     getAllCompany:(data:ICompanySearchParams)=>Promise<IPaginatedCompaniesResponse|null>
+    findByCategory:(catergoryname:string)=>Promise<CompanyEntity[]|null>
 }

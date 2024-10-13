@@ -20,7 +20,7 @@ const jobSchema=new mongoose.Schema({
         type:Boolean,
         default:false
     },
-    expired:Boolean
+    expired:{type:Boolean,default:false}
 },{
     timestamps:true
 })

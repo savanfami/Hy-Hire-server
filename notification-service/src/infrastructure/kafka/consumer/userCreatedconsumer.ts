@@ -9,10 +9,6 @@ export default async(
     
 )=>{
     try{
-
-        console.log('consumer working mail sending on process')
-        console.log(data,'dattaaaaaa froma auth')
-        // const parsedData:IUserCreatedData=JSON.parse(data)
         const email=data.email
         const otp=data.otp 
         const username=data.name

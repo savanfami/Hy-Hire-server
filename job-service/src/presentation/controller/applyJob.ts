@@ -9,7 +9,6 @@ export const applyJobController = (dependencies: IDependencies) => {
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
             const {resume,companyId,jobId}=req.body
-            console.log(req.body)
             const userId=req?.user?._id as string
             if(req.body){
                 const result=await applyForJobUsecase(dependencies).execute(userId,companyId,resume,jobId)

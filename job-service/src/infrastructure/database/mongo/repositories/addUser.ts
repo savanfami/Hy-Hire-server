@@ -22,6 +22,8 @@ export const addUser = async (data: Partial<UserEntity>): Promise<boolean | null
         if (data.socialLinks) updateData.socialLinks = data.socialLinks;
         if (data.resumes) updateData.resumes = data.resumes;
         if (data.profileCompleted) updateData.profileCompleted = data.profileCompleted
+        if(data.certificates) updateData.certificates=data.certificates
+        // if(data.isBlocked) updateData.isBlocked=data.isBlocked
         const result = await userModel.findOneAndUpdate(
             { email },
             { $set: updateData },

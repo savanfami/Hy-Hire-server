@@ -13,6 +13,7 @@ export const updateProfile = async (email: string, data: Partial<UserEntity>): P
         if (data.education) updateData.education = data.education;
         if (data.skills) updateData.skills = data.skills;
         if (data.socialLinks) updateData.socialLinks = data.socialLinks;
+        if(data.certificates) updateData.certificates=data.certificates
         if (data.resumes) updateData.resumes = data.resumes;
         const updatedData = await userModel.findOneAndUpdate(
             { email },

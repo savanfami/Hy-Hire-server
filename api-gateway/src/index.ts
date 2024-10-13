@@ -12,8 +12,8 @@ app.use(express.json())
 app.use(cookieParser())
 app.use(morgan('tiny'))
 
-
-
+ 
+ 
 const corsOptions = {
     origin: 'http://localhost:5173',
     methods: ["GET", "PUT", "PATCH", "POST", "DELETE"],

@@ -30,4 +30,11 @@ export interface UserEntity {
     profileCompleted?: boolean;
     resumes?:string[];
     savedJobs?: string[],
+    certificates?:[
+        {
+          certificateName:string,
+          issuingOrganization:string,
+          certificateImage:string
+        }
+      ]
 }

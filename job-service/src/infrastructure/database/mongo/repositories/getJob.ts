@@ -4,15 +4,14 @@ import { jobModel } from "../model/jobModel";
 
 
 export const getJob = async (companyId: string, page: number, search: string): Promise<JobResponse | null> => {
-    // const skip = (page - 1) * limit;
     const query: any = {
-        companyId: companyId
-    };
+        companyId: companyId,
+    }
     if (search) {
         query.$or = [
             { jobTitle: { $regex: search, $options: 'i' } },
             { employmentType: { $regex: search, $options: 'i' } }
-        ];
+        ]
     }
     try {
         const count = await jobModel.find()
@@ -23,12 +22,11 @@ export const getJob = async (companyId: string, page: number, search: string): P
             return {
                 jobs: findJobs as unknown as jobEntity[],
                 TotalJobs
-            }   
+            }
         } else {
             return null
         }
     } catch (error: any) {
-        console.error('Error finding jobs:', error);
         throw new Error(error?.message);
     }
 }

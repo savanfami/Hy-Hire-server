@@ -1,4 +1,5 @@
 import { IDependencies } from "application/interfaces/IDependencies";
+import { IsearchUser } from "utils/types/types";
 
 
 export const getallUserUsecase = (dependencies: IDependencies) => {
@@ -6,9 +7,9 @@ export const getallUserUsecase = (dependencies: IDependencies) => {
         repositories: { getAllUser } } = dependencies;
 
 return {
-    execute: async () => {
+    execute: async (data:IsearchUser) => {
         try {
-            return await getAllUser()
+            return await getAllUser(data)
         } catch (error: any) {
             throw new Error(error.message)
         }

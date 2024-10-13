@@ -6,7 +6,6 @@ export const getUserDataController = (dependencies: IDependencies) => {
     const { useCases: { getUserDataUsecase } } = dependencies
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
-            console.log(req.user)
             const email = req.user?.email
             if (!email) {
                 throw new Error('email not found')
@@ -19,7 +18,7 @@ export const getUserDataController = (dependencies: IDependencies) => {
                 }
             }
         } catch (error) {
-            next(error)
+            next(error)   
         }
     }
 }

@@ -1,6 +1,6 @@
-import { UserEntity } from "domain/entity";
+import { getAllUserResponse, IsearchUser } from "utils/types/types";
 
 
 export interface IgetallUserUsecase{
-  execute():Promise<UserEntity[]|null>
+  execute(data:IsearchUser):Promise<getAllUserResponse|null>
 }

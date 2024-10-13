@@ -1,17 +1,35 @@
 import { IJobFilterParams } from "utils/types/types";
 import { jobModel } from "../model/jobModel";
 
-export const getAllJobs = async (data: IJobFilterParams): Promise<any | null> => {
+export const getAllJobs = async (data: IJobFilterParams): Promise<any> => {
   try {
-    console.log(data, 'Filter Data');
-    const page = parseInt(data.page) || 1;
+    const page = parseInt(data.page as string) || 1;
     const limit = 4;
     const skip = (page - 1) * limit;
 
-    const matchCriteria: any = {};
+    const matchCriteria: any = {
+      expired:false
+    };
+
+    if (data.jobname?.trim() || data.location?.trim()) {
+      const jobtitle = data.jobname?.trim() || '';
+      const location = data.location?.trim() || '';
+
+      matchCriteria.$or = [
+        { jobTitle: { $regex: jobtitle, $options: 'i' } },
+        { joblocation: { $regex: location, $options: 'i' } },
+      ];
+
+      if (jobtitle) {
+        matchCriteria.jobTitle = { $regex: jobtitle, $options: 'i' };
+      }
+      if (location) {
+        matchCriteria.joblocation = { $regex: location, $options: 'i' };
+      }
+    }
 
     if (data.salaryUpto) {
-      const salaryUpto = parseInt(data.salaryUpto);
+      const salaryUpto = parseInt(data.salaryUpto as string);
       if (!isNaN(salaryUpto)) {
         matchCriteria.salaryMax = { $lte: salaryUpto };
       }
@@ -20,34 +38,32 @@ export const getAllJobs = async (data: IJobFilterParams): Promise<any | null> =>
     if (data.jobTypes && data.jobTypes.length > 0) {
       matchCriteria.employmentType = { $in: data.jobTypes };
     }
+
     if (data.datePosted) {
       const dateNow = new Date();
       switch (data.datePosted) {
-        case 'last-24 hours':
-          const last24Hours = new Date(dateNow.getTime() - 24 * 60 * 60 * 1000);
-          matchCriteria.createdAt = { $gte: last24Hours };
+        case 'last 24 hours':
+          matchCriteria.createdAt = { $gte: new Date(dateNow.getTime() - 24 * 60 * 60 * 1000) };
           break;
-        case 'this-week':
-          const startOfWeek = new Date(dateNow.getFullYear(), dateNow.getMonth(), dateNow.getDate() - (dateNow.getDay() + 6) % 7);
-          matchCriteria.createdAt = { $gte: startOfWeek };
+        case 'This week':
+          matchCriteria.createdAt = { $gte: new Date(dateNow.getFullYear(), dateNow.getMonth(), dateNow.getDate() - (dateNow.getDay() + 6) % 7) };
           break;
-        case 'this-month':
-          const startOfMonth = new Date(dateNow.getFullYear(), dateNow.getMonth(), 1);
-          matchCriteria.createdAt = { $gte: startOfMonth };
+        case 'This month':
+          matchCriteria.createdAt = { $gte: new Date(dateNow.getFullYear(), dateNow.getMonth(), 1) };
           break;
-        case 'all-time':
-          matchCriteria.createdAt = { $gte: new Date(0) };
-          break;
+        case 'All time':
         default:
-          matchCriteria.createdAt = { $gte: new Date(0) };
           break;
       }
     }
 
 
     const foundJobs = await jobModel.find(matchCriteria).skip(skip).limit(limit).sort({ createdAt: -1 });
-    const count = await jobModel.find(matchCriteria).countDocuments()
+
+    const count = await jobModel.countDocuments(matchCriteria);
+
     const jobIds = foundJobs.map(job => job._id);
+
     const jobsWithDetails = await jobModel.aggregate([
       { $match: { _id: { $in: jobIds } } },
       {
@@ -96,13 +112,13 @@ export const getAllJobs = async (data: IJobFilterParams): Promise<any | null> =>
       { $sort: { createdAt: -1 } }
     ]);
 
-    //return jobwithDetails
+
     return {
       jobsWithDetails,
       count
     };
-
   } catch (error: any) {
+    console.error("Error in getAllJobs:", error);
     throw new Error(error?.message);
   }
-};  
+};

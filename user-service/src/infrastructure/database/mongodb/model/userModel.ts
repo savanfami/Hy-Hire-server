@@ -59,7 +59,14 @@ const userSchema = new Schema({
     },
   },
   resumes: { type: [String] },
-  profileCompleted:{type:Boolean,default:false}
+  profileCompleted:{type:Boolean,default:false},
+  certificates:[
+    {
+      certificateName:{type:String},
+      issuingOrganization:{type:String},
+      certificateImage:{type:String,default:''}
+    }
+  ]
 },
   {
     timestamps: true

@@ -21,7 +21,6 @@ export const updateProfileController = (dependencies: IDependencies) => {
                 icon
             }
             const data = await updateProfileUsecase(dependencies).execute(datas, email)
-            console.log(data, 'updae fdfadsfadsf')
             if (data) {
                 try{
                   await updateCompanyProfileProducer(data)

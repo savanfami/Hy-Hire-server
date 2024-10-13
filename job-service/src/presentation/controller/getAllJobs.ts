@@ -15,6 +15,8 @@ export const getAllJobsController = (dependencies: IDependencies) => {
                     salaryUpto: req.query.salaryUpto && req.query.salaryUpto !=='0'? (req.query.salaryUpto as string ):null,
                     jobTypes: req.query.jobTypes?  (req.query.jobTypes as string[]):null ,
                     datePosted: req.query.datePosted ? (req.query.datePosted as string) : null,
+                    jobname:req.query.jobname?(req.query.jobname as string):null,
+                    location:req.query.location?(req.query.location as string):null,
                 }
                 const result = await getAllJobUsecase(dependencies).execute(data)
                 if(result){

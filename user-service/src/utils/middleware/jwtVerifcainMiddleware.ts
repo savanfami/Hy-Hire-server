@@ -17,9 +17,8 @@ declare global {
 
 export const jwtMiddleware = (requiredRole?:string)=>{
 return async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    console.log('inside the jwt middleware');
+    console.log('inside the jwt');
     const token = req.cookies.access_token || (req.headers.authorization?.split(' ')[1] || '');
-    // console.log(token,'token verification for user service')
     if (!token) {
         res.status(401).json({ message: 'no token found' });
         return;

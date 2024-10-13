@@ -8,7 +8,6 @@ export const postJob=async(data:jobEntity):Promise<jobEntity|null>=>{
         return job as unknown as jobEntity
 
     }catch(error:any){
-        console.log(error)
         throw new Error (error?.message)
     }
 }

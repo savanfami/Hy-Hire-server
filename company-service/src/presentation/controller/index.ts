@@ -6,6 +6,7 @@ import { companyRequestController } from "./companyRequest";
 import { listRequestController } from "./companyListController";
 import { updateRequestController } from "./updateRequestController";
 import { getAllCompanyController } from "./getAllCompany";
+import { getCompanyByCategoryController } from "./getCompanyDataByCategory";
 
 export const controller=(dependencies:IDependencies)=>{
     return {
@@ -15,6 +16,7 @@ export const controller=(dependencies:IDependencies)=>{
         sendRequest:companyRequestController(dependencies),
         listRequest:listRequestController(dependencies),
         updateRequest:updateRequestController(dependencies),
-        getAllCompany:getAllCompanyController(dependencies)
+        getAllCompany:getAllCompanyController(dependencies),
+        getCompanyData:getCompanyByCategoryController(dependencies),
     }
 } 
