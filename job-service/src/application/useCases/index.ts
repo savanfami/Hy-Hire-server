@@ -11,3 +11,5 @@ export * from './getSavedJobsUsecase'
 export * from './getApplicantDetailsByJobUsecase'
 export * from './updateHiringStatusUsecase'
 export * from './getApplicationByUserUsecase'
+export * from './Chat/createChatUsecase'
+

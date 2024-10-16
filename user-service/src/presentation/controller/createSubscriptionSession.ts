@@ -1,85 +1,90 @@
-// import { IDependencies } from "../../application/interface/IDependencies";
 import { NextFunction, Request, Response } from "express";
 import Stripe from "stripe";
-import { config } from 'dotenv'
-config()
+import { config } from 'dotenv';
+import { Subscription } from "../../infrastructure/database/mongodb/model/subscriptionModel";
+config();
 
-// import { STRIPE_SECRET } from "../../config/envConfig/config";
-// import { getUserById } from '../../infrastructure/database/mongodb/repositories';
-
-
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string , {
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: "2024-09-30.acacia",
 });
 
 export const createSubscriptionSessionController = () => {
   return async (req: Request, res: Response, next: NextFunction) => {
-     const {plan}=req.body
-     let priceId:any
-     switch(plan){
-        case 'bronze':
-        priceId='price_1Q5kW2FYWf8ALHrOqdONfulE';
-        break;
+    const { plan } = req.body;
+    const userId = req.user?._id;
+    const email = req.user?.email;
 
-        case 'gold': 
-        priceId='price_1Q5kj5FYWf8ALHrOXcpHHon4'
-        break;
+    const existingSubscription = await Subscription.findOne({ userId, status: 'active' });
+    if (existingSubscription) {
+      return res.status(400).json({ error: 'User already has an active subscription' });
+    }
 
-        case 'platinum':
-        priceId='price_1Q5kkkFYWf8ALHrOFqk06FBj'
-        break;
+    let priceId: string | undefined;
 
-        case 'diamond':
-        priceId='price_1Q5klmFYWf8ALHrOlhtpPfpu'
+    switch (plan) {
+      case 'bronze':
+        priceId = 'price_1Q5kW2FYWf8ALHrOqdONfulE';
         break;
-        default :
-        return res.status(400).json({error:'invalid plan selecteed'})
-     }
+      case 'gold':
+        priceId = 'price_1Q5kj5FYWf8ALHrOXcpHHon4';
+        break;
+      case 'platinum':
+        priceId = 'price_1Q5kkkFYWf8ALHrOFqk06FBj';
+        break;
+      case 'diamond':
+        priceId = 'price_1Q5klmFYWf8ALHrOlhtpPfpu';
+      case 'trail':
+        priceId='price_1QA6MZFYWf8ALHrO08zj4tlH'
+        break;
+      case 'trail2':
+        priceId='price_1QA6iqFYWf8ALHrO3qviZXus'
+        break;
+      default:
+        return res.status(400).json({ error: 'Invalid plan selected' });
+    }
+
     try {
-    //   const user = await getUserById(userId);
-    //  console.log(user);
-
-    //   if (!user) {
-    //     return res.status(404).json({ error: "User not found" });
-    //   }
-
-    //   const hasProSubscription = user.subscription?.some(
-    //     (sub: any) => sub.planType === "pro" && sub.isActive === true
-    //   );
-
-    //   if (hasProSubscription) {
-    //     return res.status(200).json({ error: "You have already purchased the Pro version." });
-    //   }
-
-    //   const amount=1000
-      const lineItems = [
+      const lineItems: Stripe.Checkout.SessionCreateParams.LineItem[] = [
         {
-          price: priceId, 
+          price: priceId,
           quantity: 1,
         },
       ];
 
-      
-      
-  console.log(process.env.FRONTEND_URL)
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         line_items: lineItems,
         mode: "subscription",
         success_url: `${process.env.FRONTEND_URL}/payment-success`,
-        cancel_url: `${process.env.FRONTEND_URL}/payment-failed`,
-        // metadata: {
-        // //   userId: userId.toString(),
-        // //   userEmail: email,
-        //   amount: 499,
-        // },
-      });
-      
-
-      res.status(200).json({ success: true, id: session.id, message: "Subscription response" });
+        cancel_url: `${process.env.FRONTEND_URL}/trypremium`,
+        metadata: {
+          userId: userId,
+          userEmail: email,
+          plan: plan
+        },
+      } as Stripe.Checkout.SessionCreateParams);
+      res.status(200).json({ success: true, id: session.id, message: "Subscription created successfully" });
     } catch (error) {
-        console.log(error,'eeeeeeeeeeeeeeeeeeeeeeeeeeeee')
+      console.error("Error creating subscription session:", error);
       next(error);
     }
   };
 };
+
+export const createCustomerPortalSessionController =
+  async (req: Request, res: Response, next: NextFunction) => {
+    const userId = req.user?._id;
+    const subscription = await Subscription.findOne({ userId, status: 'active' })
+    if (!subscription) {
+      return res.status(400).json({ error: 'User does not have an active subscription' });
+    }
+    try {
+      const session = await stripe.billingPortal.sessions.create({
+        customer: subscription.stripeCustomerId as string,
+        return_url: `${process.env.FRONTEND_URL}`,
+      });
+      res.json({ url: session.url });
+    } catch (error) {
+      next(error)
+    }
+  };

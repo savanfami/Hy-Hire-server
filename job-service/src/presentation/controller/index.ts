@@ -12,6 +12,7 @@ import { getSavedJobsController } from "./getSavedJobs";
 import { getUserDetailsByJobController } from "./getUserDetailsByJob";
 import { updateStatusController } from "./updateStatusController";
 import { getApplicationByUserController } from "./getUserApplications";
+import { createChatController } from "./chatController";
 
 
 export const controller=(dependencies:IDependencies)=>{
@@ -29,5 +30,9 @@ export const controller=(dependencies:IDependencies)=>{
         getUserDetailsByJob:getUserDetailsByJobController(dependencies),
         updateHiringStatus:updateStatusController(dependencies),
         getApplication:getApplicationByUserController(dependencies),
+
+
+        //chat controllers
+        createChat:createChatController(dependencies),
     }
 }

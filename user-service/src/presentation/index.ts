@@ -9,11 +9,19 @@ config()
 const app: Application = express()
 const PORT = process.env.PORT || 8004
 
+app.use((req, res, next) => {
+    if (req.originalUrl === '/webhook') {
+      next();
+    } else {
+      express.json()(req, res, next);
+    }
+  });
 
-app.use(express.json())
+// app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieparser())
 app.use(morgan('dev'))
+
 
 
 app.use('/', router(dependencies))

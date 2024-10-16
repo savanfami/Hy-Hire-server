@@ -17,7 +17,7 @@ declare global {
 
 export const jwtMiddleware = (requiredRole?:string)=>{
 return async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-    console.log('inside the jwt');
+    console.log('inside the jwtttt');
     const token = req.cookies.access_token || (req.headers.authorization?.split(' ')[1] || '');
     if (!token) {
         res.status(401).json({ message: 'no token found' });

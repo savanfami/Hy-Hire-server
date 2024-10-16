@@ -1,6 +1,6 @@
 import { IDependencies } from "./IDependencies";
 import { IgetJobUsecase, IpostJobUsecase,IgetAllJobUsecase,IAddUserUsecase,IapplyForJobUsecase, IGetAllUserUsecase,IDeleteJobUsecase,IgetAllDataUsecase,IsaveJobUsecase, IsavedJobUsecase,IgetApplicantDetailsByJobUsecase,
-    IUpdateHiringStatusUsecase,IGetApplicationByUserUsecase
+    IUpdateHiringStatusUsecase,IGetApplicationByUserUsecase,ICreateChatUsecase
 } from "domain/useCaseInterface";
 
 
@@ -18,4 +18,6 @@ export interface IUseCases{
     getApplicantDetailsByJobUsecase:(dependencies:IDependencies)=>IgetApplicantDetailsByJobUsecase
     updateStatusUsecase:(dependencies:IDependencies)=>IUpdateHiringStatusUsecase
     getApplicationsByUserUsecase:(dependencies:IDependencies)=>IGetApplicationByUserUsecase
+
+    createChatUsecase:(dependencies:IDependencies)=>ICreateChatUsecase
 }

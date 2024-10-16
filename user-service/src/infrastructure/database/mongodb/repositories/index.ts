@@ -1,3 +1,5 @@
 export * from './getAllUser'
 export * from './updateProfile'
 export * from './getUserData'
+export * from './getSubscriptionStatus'
+export * from './getSubscriptions'

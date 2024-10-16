@@ -183,3 +183,9 @@ export interface getApplicationPayload{
   page:number;
   search:string;
 }
+
+
+export interface IChatpayload{
+  sender:string;
+  reciever:string
+}

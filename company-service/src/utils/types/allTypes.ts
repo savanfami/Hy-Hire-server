@@ -17,6 +17,13 @@ export interface IUpdateRequestPayload{
     status:string
 }
 
+export enum Roles{
+    User='user',
+    Admin='admin',
+    Company='company'
+}
+
+
 
 export interface IUpdateRequestResponse{
     name:string;
