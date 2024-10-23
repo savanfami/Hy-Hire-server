@@ -5,9 +5,21 @@ import morgan from 'morgan'
 import { router } from '../infrastructure/routes'
 import { dependencies } from '../config/dependencies'
 import { errorHandler } from "../utils/common/errorHandler";
+import path from "path";
+import fs from 'fs'
 config()
 const app: Application = express()
 const PORT = process.env.PORT || 8004
+
+
+const logDirectory = path.join(__dirname, 'logs');
+if (!fs.existsSync(logDirectory)) {
+    fs.mkdirSync(logDirectory);
+}
+
+const accessLogStream = fs.createWriteStream(path.join(logDirectory, 'access.log'), { flags: 'a' });
+
+
 
 app.use((req, res, next) => {
     if (req.originalUrl === '/webhook') {
@@ -17,10 +29,15 @@ app.use((req, res, next) => {
     }
   });
 
+if (process.env.NODE_ENV === 'development') {
+  app.use(morgan('dev'));
+} else {
+  app.use(morgan('common', { stream: accessLogStream }));
+}
+
 // app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieparser())
-app.use(morgan('dev'))
 
 
 

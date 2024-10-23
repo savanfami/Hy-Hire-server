@@ -6,7 +6,7 @@ export const getApplicationsByUserUsecase = (dependencies: IDependencies) => {
     const { repositories: { getApplicationsByUser } } = dependencies
     return {
         execute: async (data:getApplicationPayload) => {
-            try {
+            try {   
                 return getApplicationsByUser(data)
             } catch (error) {
                 throw error

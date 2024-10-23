@@ -47,7 +47,7 @@ export const getApplicationsByUser = async (payload: getApplicationPayload): Pro
                         },
                         {
                             $project: {
-                                _id: 0,
+                                _id: 1,
                                 companyName: "$company.name",
                                 jobTitle: "$job.jobTitle",
                                 hiringStatus: "$hiringStatus",

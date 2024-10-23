@@ -3,25 +3,23 @@ import mongoose, { Schema, Model } from "mongoose";
 import { ChatMessageEntity } from "domain/entities/chatMessageEntity";
 const chatMessageSchema: Schema<ChatMessageEntity> = new Schema(
   {
-    sender: {
-      type: Schema.Types.ObjectId,
-      ref: "user",
-    },
     content: {
-      type: String, 
+      type: String,
+    },
+    senderId: {
+      type: Schema.Types.ObjectId,
     },
     attachments: {
       type: [
         {
           url: { type: String },
-          localPath: { type: String }, 
+          type: { type: String },
         },
       ],
       default: [],
     },
-    chat: {
+    chatId: {
       type: Schema.Types.ObjectId,
-      ref: "Chat",
     },
   },
   { timestamps: true }

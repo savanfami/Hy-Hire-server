@@ -4,16 +4,19 @@ import mongoose, { Schema, } from "mongoose";
 
 const chatSchema: Schema<ChatEntity> = new Schema(
   {
-    roomCreator: {
+    senderId: {
       type: Schema.Types.ObjectId,
     },
-    roomJoiner:
+    recieverId:
     {
       type: Schema.Types.ObjectId,
     },
     lastMessage: {
       type: Schema.Types.Mixed,
     },
+    unreadCount:{
+      type:Number
+    }
 
   },
   { timestamps: true }

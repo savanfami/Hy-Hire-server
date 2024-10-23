@@ -14,11 +14,15 @@ export const createChatController=(dependencies:IDependencies)=>{
                 throw  ErrorResponse.notFound('no company found')
             }
             const data:IChatpayload={
-                reciever:companyId,
-                sender:userId
+                recieverId:companyId,
+                senderId:userId
             }
-            const res=await createChatUsecase(dependencies).execute(data)
-            console.log(res)
+            const response=await createChatUsecase(dependencies).execute(data)
+            console.log(response,'response')
+              if(!response){
+                throw ErrorResponse.internalError('internal server error')
+              }
+              return res.status(200).json(response)
         } catch (error) {
            next(error) 
         }

@@ -1,0 +1,20 @@
+::1 - - [18/Oct/2024:06:57:18 +0000] "GET /savedjobs HTTP/1.1" 401 28 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36"
+::1 - - [18/Oct/2024:06:57:18 +0000] "GET /count HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36"
+::1 - - [18/Oct/2024:06:57:18 +0000] "GET /savedjobs HTTP/1.1" 401 28 "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36"
+::1 - - [18/Oct/2024:06:57:18 +0000] "GET /count HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36"
+::1 - - [18/Oct/2024:06:57:19 +0000] "GET /getallData HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36"
+::1 - - [18/Oct/2024:06:57:19 +0000] "GET /getallData HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36"
+::1 - - [18/Oct/2024:06:58:10 +0000] "GET /get-alljobs?page=1&salaryUpto=0&datePosted=&jobname=&location= HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36"
+::1 - - [18/Oct/2024:06:58:10 +0000] "GET /get-alljobs?page=1&salaryUpto=0&datePosted=&jobname=&location= HTTP/1.1" 304 - "http://localhost:5173/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36"
+::1 - - [18/Oct/2024:07:09:11 +0000] "GET /savedjobs HTTP/1.1" 401 28
+::1 - - [18/Oct/2024:07:09:11 +0000] "GET /savedjobs HTTP/1.1" 401 28
+::1 - - [18/Oct/2024:07:09:11 +0000] "GET /count HTTP/1.1" 304 -
+::1 - - [18/Oct/2024:07:09:11 +0000] "GET /count HTTP/1.1" 304 -
+::1 - - [18/Oct/2024:07:09:11 +0000] "GET /getallData HTTP/1.1" 304 -
+::1 - - [18/Oct/2024:07:09:11 +0000] "GET /getallData HTTP/1.1" 304 -
+::1 - - [18/Oct/2024:07:09:34 +0000] "GET /savedjobs HTTP/1.1" 401 28
+::1 - - [18/Oct/2024:07:09:34 +0000] "GET /savedjobs HTTP/1.1" 401 28
+::1 - - [18/Oct/2024:07:09:34 +0000] "GET /getallData HTTP/1.1" 304 -
+::1 - - [18/Oct/2024:07:09:34 +0000] "GET /count HTTP/1.1" 304 -
+::1 - - [18/Oct/2024:07:09:34 +0000] "GET /count HTTP/1.1" 304 -
+::1 - - [18/Oct/2024:07:09:34 +0000] "GET /getallData HTTP/1.1" 304 -

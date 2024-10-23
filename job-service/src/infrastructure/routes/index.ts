@@ -7,7 +7,7 @@ import { Roles } from '../../utils/types/types'
 
 export const router = (dependencies: IDependencies) => {
     const { jobPost, listJobs, getAllJobs, addUser, applyJob,getAllUser,deleteJob,getAllData,saveJobs,savedJobs,getUserDetailsByJob,updateHiringStatus,getApplication,
-        createChat
+        createChat,getCount,getApplicationDetails,getChat,createMessage
     } = controller(dependencies)
     const router = Router()
     router.route('/post-job').post(jwtMiddleware(Roles.Company), jobPost)
@@ -22,11 +22,14 @@ export const router = (dependencies: IDependencies) => {
     router.route('/:jobId/listusers').get(jwtMiddleware(Roles.Company),getUserDetailsByJob)
     router.route('/update-status').put(jwtMiddleware(Roles.Company),updateHiringStatus)
     router.route('/all-applications').get(jwtMiddleware(Roles.User),getApplication)
-    
+    router.route('/count').get(getCount)
+    router.route('/applications/:id').get(jwtMiddleware(Roles.User),getApplicationDetails)
 
 
     //chat routes
 
-    router.route('/chat/create').post(jwtMiddleware(Roles.User),createChat)
+    router.route('/chat/create').post(jwtMiddleware(),createChat)
+    router.route('/chat').get(jwtMiddleware(),getChat)
+    router.route('/messages').post(jwtMiddleware(),createMessage)//middleware need to be added for user and company
     return router
 }   
