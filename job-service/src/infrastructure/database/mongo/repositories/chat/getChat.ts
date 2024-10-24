@@ -4,7 +4,6 @@ import mongoose from "mongoose";
 
 export const getChat = async (userId: string,role:string): Promise<IgetChatResponse[] | null> => {
     try {
-        console.log(role,'rolee==<><>')
         const userObjectId = new mongoose.Types.ObjectId(userId);
         if(role==='user'){
             const chatWithCompanyData = await Chat.aggregate([
@@ -51,18 +50,18 @@ export const getChat = async (userId: string,role:string): Promise<IgetChatRespo
                         from: 'users',
                         localField: 'senderId',
                         foreignField: '_id',
-                        as: 'userData'
+                        as: 'companyData'
                     }
                 },
                 {
-                    $unwind: '$userData'
+                    $unwind: '$companyData'
                 },
                 {
                     $project: {
                         _id: 1,
-                        'userData.name': 1,
-                        'userData.image': 1,
-                        'userData._id':1
+                        'companyData.name': 1,
+                        'companyData.image': 1,
+                        'companyData._id':1
                     }
                 }
             ]);
@@ -71,6 +70,8 @@ export const getChat = async (userId: string,role:string): Promise<IgetChatRespo
             }
     
             return chatWithCompanyData;
+        }else{
+            return null
         }
 
     } catch (error) {

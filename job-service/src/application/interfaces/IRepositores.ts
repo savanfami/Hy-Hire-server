@@ -1,6 +1,6 @@
 import { jobEntity, JobResponse } from "domain/entities";
 import { UserEntity } from "domain/entities/userEntity";
-import { getalljobInterface, getApplicationPayload, IApplicantDetails, IChatpayload, ICountResponse, ICreateMessagePayload, IGetApplicationDetailsResponse, IgetChatResponse, IGetUserApplicationResponse, IJobFilterParams, IUpdateStatusPayload } from "utils/types/types";
+import { getalljobInterface, getApplicationPayload, IApplicantDetails, IChatpayload, ICountResponse, ICreateMessagePayload, IGetApplicationDetailsResponse, IgetChatResponse, IGetUserApplicationResponse, IJobFilterParams, IMessageResponse, IUpdateStatusPayload } from "utils/types/types";
 
 
 export interface IRepositories{
@@ -22,5 +22,6 @@ export interface IRepositories{
 
     createChat(data:IChatpayload):Promise<boolean|null>
     getChat(userId:string,role:string):Promise<IgetChatResponse[]|null>
-    createMessage(data:ICreateMessagePayload):Promise<boolean|null>
+    createMessage(data:ICreateMessagePayload):Promise<IMessageResponse|null>
+    getMessages(chatId:string):Promise<IMessageResponse[]|null>
 }

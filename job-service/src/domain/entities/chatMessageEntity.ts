@@ -1,4 +1,4 @@
-import mongoose, {  Document } from "mongoose";
+import  {  Document, Types } from "mongoose";
 
 export interface IAttachment {
   url: string;
@@ -6,10 +6,13 @@ export interface IAttachment {
 }
 
 export interface ChatMessageEntity extends Document {
-  senderId: mongoose.Types.ObjectId | undefined; 
-  content: string;
-  attachments: IAttachment[] | null; 
-  chatId: mongoose.Types.ObjectId; 
+  senderId: Types.ObjectId ; 
+  message: string;
+  audio: string ; 
+  chatId: Types.ObjectId; 
+  isAudio:boolean
   createdAt: Date; 
   updatedAt: Date;
+  isRead?:boolean
+  _id:Types.ObjectId
 }

@@ -17,7 +17,6 @@ const chatSchema: Schema<ChatEntity> = new Schema(
     unreadCount:{
       type:Number
     }
-
   },
   { timestamps: true }
 );

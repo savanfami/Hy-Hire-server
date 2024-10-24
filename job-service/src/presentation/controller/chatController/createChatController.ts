@@ -18,7 +18,6 @@ export const createChatController=(dependencies:IDependencies)=>{
                 senderId:userId
             }
             const response=await createChatUsecase(dependencies).execute(data)
-            console.log(response,'response')
               if(!response){
                 throw ErrorResponse.internalError('internal server error')
               }

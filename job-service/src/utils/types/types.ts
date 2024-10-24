@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Types } from "mongoose";
 
 export interface ListJobsQuery {
   page?: string;
@@ -221,7 +221,22 @@ export interface IgetChatResponse {
 
 
 export interface ICreateMessagePayload{
-  senderId?:string;
-  message:any;
+  senderId:string;
+  message?:any;
   chatId:string;
+  audio?:any
+}
+
+
+
+export interface IMessageResponse {
+  _id: Types.ObjectId;  
+  message: string;
+  senderId: Types.ObjectId;
+  audio: string;
+  isAudio: boolean;
+  chatId: Types.ObjectId;
+  createdAt: Date;
+  updatedAt: Date;
+  isRead?: boolean;
 }

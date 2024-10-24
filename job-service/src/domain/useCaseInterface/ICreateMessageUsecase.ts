@@ -1,5 +1,5 @@
-import { ICreateMessagePayload } from "utils/types/types";
+import { ICreateMessagePayload, IMessageResponse } from "utils/types/types";
 
 export interface ICreateMessageUsecase{
-    execute(data:ICreateMessagePayload):Promise<boolean|null>
+    execute(data:ICreateMessagePayload):Promise<IMessageResponse|null>
 }

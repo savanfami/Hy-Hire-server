@@ -5,7 +5,8 @@ import {
     IUpdateHiringStatusUsecase, IGetApplicationByUserUsecase, ICreateChatUsecase,
     IGetCountUsecase,
     IgetChatUsecase,
-    ICreateMessageUsecase
+    ICreateMessageUsecase,
+    IgetMessageUsecase
 } from "domain/useCaseInterface";
 
 
@@ -28,4 +29,5 @@ export interface IUseCases {
     getApplicationDetailsUsecase: (dependencies: IDependencies) => IgetApplicationDetailsUsecase
     getChatUsecase: (dependencies: IDependencies) => IgetChatUsecase
     createMessageUsecase: (dependencies: IDependencies) => ICreateMessageUsecase
+    getMessagesUsecase:(dependencies:IDependencies)=>IgetMessageUsecase
 }
