@@ -15,8 +15,8 @@ const connectSocketIo = (server: Server) => {
         io.on("connection", (socket: Socket) => {
             console.log("Socket Connected", socket.id);
 
-            socket.on("newMessage",(data)=>{
-                 console.log(data)
+            socket.on("newMessage", (data) => {
+                console.log(data)
             })
 
             const userId = socket.handshake.query.userId as string;
