@@ -73,6 +73,30 @@ export const subscriptionWebhookController = () => {
 async function handleCheckoutSessionCompleted(event: Stripe.Event) {
   const checkoutSession = event.data.object as Stripe.Checkout.Session;
   const subscriptionId = checkoutSession.subscription as string;
+  const userId = new mongoose.Types.ObjectId(checkoutSession.metadata?.userId ?? '');
+  const existingSubscription = await Subscription.findOne({ 
+    userId, 
+    status: { $in: ['active', 'trialing'] }  
+  });
+  
+  if (existingSubscription) {
+    console.log('Active subscription already exists for user:', userId);
+    
+  
+    try {
+      await stripe.subscriptions.cancel(subscriptionId, {
+        invoice_now: false,
+        prorate: true
+      });
+      
+      console.log('Cancelled duplicate subscription:', subscriptionId);
+      return;
+    } catch (error) {
+      console.error('Error cancelling duplicate subscription:', error);
+      return;
+    }
+  }
+
   try {
     const subscriptionDetails = await stripe.subscriptions.retrieve(subscriptionId);
     const userId = new mongoose.Types.ObjectId(checkoutSession.metadata?.userId ?? '');

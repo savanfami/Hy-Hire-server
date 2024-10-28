@@ -212,6 +212,8 @@ export interface IGetApplicationDetailsResponse {
 
 export interface IgetChatResponse {
   _id?: string
+  lastMessage?:any
+  recieverId:string
   companyData: {
     name: string;
     icon: string;

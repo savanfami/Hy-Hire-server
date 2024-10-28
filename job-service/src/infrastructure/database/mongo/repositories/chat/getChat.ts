@@ -26,6 +26,8 @@ export const getChat = async (userId: string,role:string): Promise<IgetChatRespo
                 {
                     $project: {
                         _id: 1,
+                        lastMessage:1,
+                        recieverId:1,
                         'companyData.name': 1,
                         'companyData.icon': 1,
                         'companyData._id':1
@@ -59,6 +61,8 @@ export const getChat = async (userId: string,role:string): Promise<IgetChatRespo
                 {
                     $project: {
                         _id: 1,
+                        lastMessage:1,
+                        senderId:1,
                         'companyData.name': 1,
                         'companyData.image': 1,
                         'companyData._id':1

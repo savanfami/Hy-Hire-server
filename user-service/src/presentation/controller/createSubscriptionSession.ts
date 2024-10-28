@@ -3,22 +3,22 @@ import Stripe from "stripe";
 import { config } from 'dotenv';
 import { Subscription } from "../../infrastructure/database/mongodb/model/subscriptionModel";
 config();
-
+// const secret=process.env.STRIPE.SECRET_KEY as string
+// console.log(secret)
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: "2024-09-30.acacia",
 });
-
+console.log('connected')
 export const createSubscriptionSessionController = () => {
   return async (req: Request, res: Response, next: NextFunction) => {
     const { plan } = req.body;
     const userId = req.user?._id;
     const email = req.user?.email;
-
+   
     const existingSubscription = await Subscription.findOne({ userId, status: 'active' });
     if (existingSubscription) {
-      return res.status(400).json({ error: 'User already has an active subscription' });
+      return res.status(400).json({message:'already has an active subscription'});
     }
-
     let priceId: string | undefined;
 
     switch (plan) {
@@ -33,11 +33,6 @@ export const createSubscriptionSessionController = () => {
         break;
       case 'diamond':
         priceId = 'price_1Q5klmFYWf8ALHrOlhtpPfpu';
-      case 'trail':
-        priceId='price_1QA6MZFYWf8ALHrO08zj4tlH'
-        break;
-      case 'trail2':
-        priceId='price_1QA6iqFYWf8ALHrO3qviZXus'
         break;
       default:
         return res.status(400).json({ error: 'Invalid plan selected' });
@@ -50,7 +45,7 @@ export const createSubscriptionSessionController = () => {
           quantity: 1,
         },
       ];
-
+      
       const session = await stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         line_items: lineItems,
@@ -63,6 +58,7 @@ export const createSubscriptionSessionController = () => {
           plan: plan
         },
       } as Stripe.Checkout.SessionCreateParams);
+      console.log('creaed successfully')
       res.status(200).json({ success: true, id: session.id, message: "Subscription created successfully" });
     } catch (error) {
       console.error("Error creating subscription session:", error);

@@ -13,7 +13,7 @@ export const createMessage = async (data: ICreateMessagePayload): Promise<IMessa
             chatId: data.chatId,
         })
         await Chat.findByIdAndUpdate(data.chatId, {
-            lastMessage: data.message || '', 
+            lastMessage: data.message || data.audio, 
         });
         if (createMessage) {
             return createMessage;
