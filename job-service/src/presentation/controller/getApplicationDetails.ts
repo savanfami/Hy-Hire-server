@@ -8,7 +8,6 @@ export const getApplicationDetailsController = (dependencies: IDependencies) => 
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
             const id = req.params.id as string
-            console.log(id)
             if (!id) {
                 throw ErrorResponse.badRequest('no applicant id found')
             }

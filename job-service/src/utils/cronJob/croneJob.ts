@@ -4,8 +4,8 @@ import { jobModel } from '../../infrastructure/database/mongo/model/jobModel';
 export const cronSchedule = cron.schedule('0 0 * * *', async () => {
 
     try {
+        console.log('running')
         const now = new Date();
-
         const result: any = await jobModel.updateMany(
             { endDate: { $lte: now } },
             { $set: { expired: true } }

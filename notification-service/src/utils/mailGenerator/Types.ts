@@ -16,6 +16,7 @@ export interface IUpdateRequestResponse{
     schedule:{
       interviewDate:Date;
       interviewTime:string;
+      roomId?:string;
     };
     userDetails:{
       email:string;

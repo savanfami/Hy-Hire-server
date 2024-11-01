@@ -21,7 +21,6 @@ export const saveJob=async(jobId:string,userId:string):Promise<boolean|null>=>{
             return null
         }
     }catch(error:any){
-        console.log(error)
         throw new Error (error?.message)
     }
 }

@@ -8,7 +8,7 @@ export default async (data:IUpdateStatusResponse)=>{
         const message=[{
             topic:'notification-service-topic',
             messages:[{
-                key:'status_updated',
+                key:'interview_scheduler',
                 value:JSON.stringify(data)
             }]
         }]

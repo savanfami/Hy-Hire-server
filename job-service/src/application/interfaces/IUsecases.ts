@@ -6,7 +6,8 @@ import {
     IGetCountUsecase,
     IgetChatUsecase,
     ICreateMessageUsecase,
-    IgetMessageUsecase
+    IgetMessageUsecase,
+    IgetAdminDashboardData
 } from "domain/useCaseInterface";
 
 
@@ -30,4 +31,5 @@ export interface IUseCases {
     getChatUsecase: (dependencies: IDependencies) => IgetChatUsecase
     createMessageUsecase: (dependencies: IDependencies) => ICreateMessageUsecase
     getMessagesUsecase:(dependencies:IDependencies)=>IgetMessageUsecase
+    getAdminDashboardDataUsecase:(dependencies:IDependencies)=>IgetAdminDashboardData
 }

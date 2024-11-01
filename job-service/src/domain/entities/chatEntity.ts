@@ -8,5 +8,6 @@ export interface ChatEntity extends Document {
   createdAt?: Date;
   updatedAt?: Date;
   unreadCount:number;
+  messageSender:Schema.Types.ObjectId
 }
   

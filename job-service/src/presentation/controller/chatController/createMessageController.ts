@@ -9,12 +9,14 @@ export const createMessageController = (dependencies: IDependencies) => {
   return async (req: Request, res: Response, next: NextFunction) => {
     try {
       const senderId = req.user?._id;
+      const role=req.user?.role as string
       if (!senderId) {
         throw ErrorResponse.badRequest('No sender found');
       }
       const data: ICreateMessagePayload = {
         chatId: req.body.chatId,
         senderId: senderId,
+        role:role
       };
       if (req.body.message) {
         data.message = req.body.message;

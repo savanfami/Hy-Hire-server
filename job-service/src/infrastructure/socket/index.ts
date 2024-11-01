@@ -1,8 +1,9 @@
 import { Server } from "http";
+import { ChatMessage } from "../../infrastructure/database/mongo/model/chatMessageSchema";
+import { Chat } from "../../infrastructure/database/mongo/model/chatSchema";
 import { Socket } from "socket.io";
 import { Server as SocketIOServer } from "socket.io";
-
-
+import handleCallEvents from "./handleCallEvents";
 interface IOnlineUserData {
     userId: string;
     socketId: string;
@@ -10,6 +11,8 @@ interface IOnlineUserData {
     isOnline: boolean;
 }
 const onlineUsers: IOnlineUserData[] = [];
+const activeUsersInRooms: { [key: string]: Set<any> } = {};
+const rooms: Record<string, string[]> = {};
 const connectSocketIo = (server: Server) => {
     try {
         const io = new SocketIOServer(server, {
@@ -21,14 +24,15 @@ const connectSocketIo = (server: Server) => {
         });
 
         io.on("connection", (socket: Socket) => {
+            console.log('socket-connected')
             const userId = socket.handshake.query.userId as string;
             if (userId) {
-                const existUserIndex=onlineUsers.findIndex((x)=>x.userId===userId)
-                if(existUserIndex!==-1){
-                    onlineUsers[existUserIndex].isOnline=true;
-                    onlineUsers[existUserIndex].lastActive='';
-                    onlineUsers[existUserIndex].socketId=socket.id;
-                }else{
+                const existUserIndex = onlineUsers.findIndex((x) => x.userId === userId)
+                if (existUserIndex !== -1) {
+                    onlineUsers[existUserIndex].isOnline = true;
+                    onlineUsers[existUserIndex].lastActive = '';
+                    onlineUsers[existUserIndex].socketId = socket.id;
+                } else {
                     onlineUsers.push({
                         userId,
                         socketId: socket.id,
@@ -37,56 +41,180 @@ const connectSocketIo = (server: Server) => {
                     });
                 }
             }
-            console.log(onlineUsers, 'online users')
 
-            socket.on('getOnlineStatus', () => { 
+            socket.on('getOnlineStatus', () => {
                 io.emit('userStatus', onlineUsers);
-                console.log('emtted online user to the front end');
             });
-             
+
+           
+       
+
             // io.emit('getOnlineStatus',)
 
-       
-                io.emit('userStatus', onlineUsers);
-                console.log('emitted user status whenever  loggins happnes')
-               console.log(onlineUsers,'login emitted')
-          
+
+            io.emit('userStatus', onlineUsers);
+
 
             socket.on("joinRoom", (chatId: string) => {
                 if (chatId) {
                     socket.join(chatId);
-                    console.log(`User ${userId} joined room ${chatId}`);
+                    if (!activeUsersInRooms[chatId]) {
+                        activeUsersInRooms[chatId] = new Set();
+                    }
+                    activeUsersInRooms[chatId].add(userId);
+
                 }
-            }); 
- 
-            socket.on("newMessage", (data) => {
+                console.log(activeUsersInRooms, 'activ euser isn room')
+            });
+
+
+            socket.on("newMessage", async (data) => {
                 const { chatId } = data;
                 if (chatId) {
                     io.to(chatId).emit("receiveMessage", data);
+                    try {
+                        const updatedChat = await Chat.findById(chatId);
+                        if (updatedChat) {
+                            const senderId = updatedChat.messageSender.toString()
+                            const usersInRoom = activeUsersInRooms[chatId];
+                            if (usersInRoom) {
+                                const recipientId = [...usersInRoom].find(userId => userId !== senderId);
+                                if (usersInRoom.has(senderId) && usersInRoom.has(recipientId)) {
+                                    console.log('both users in the chat')
+                                    updatedChat.unreadCount = 0
+                                    await updatedChat.save()
+                                    await ChatMessage.updateMany(
+                                        {
+                                            chatId,
+                                            isRead: false
+                                        },
+                                        {
+                                            isRead: true
+                                        },
+                                        {new:true}
+                                    );
+                                    socket.emit('updatedMessageStatus',chatId)
+                                } else {
+                                    io.emit("unreadCountUpdated", {
+                                        chatId,
+                                        unreadCount: updatedChat.unreadCount,
+                                        messageSender: updatedChat.messageSender,
+                                        lastMessage: updatedChat.lastMessage,
+                                    });
+                                    console.log(`Unread count for chat ${chatId} updated to ${updatedChat.unreadCount}`);
+                                }
+                            } else {
+                                console.log("Room has insufficient users or does not exist.");
+                            }
+                        } else {
+                            console.log('no data')
+                        }
+
+                        // if (updatedChat && (!activeUsersInRooms[chatId] )) {
+                        //     io.emit("unreadCountUpdated", {
+                        //         chatId,
+                        //         unreadCount: updatedChat.unreadCount,
+                        //         messageSender: updatedChat.messageSender,
+                        //         lastMessage: updatedChat.lastMessage,
+                        //     });
+                        //     console.log(`Unread count for chat ${chatId} updated to ${updatedChat.unreadCount}`);
+                        // }
+                    } catch (error) {
+                        console.error("Failed to update unread count:", error);
+                    }
+
                 } else {
                     console.log('failed to emit receive message');
-                }  
-            }); 
-   
-            socket.on("disconnect", () => {
-                console.log('disconnected ')
+                }
+            });
+
+            socket.on("leaveRoom", (chatId: string) => {
+                if (chatId && userId) {
+                    const usersInRoom = activeUsersInRooms[chatId];
+                    if (usersInRoom) {
+                        usersInRoom.delete(userId);
+                        console.log(`User ${userId} left room ${chatId}`);
+                        if (usersInRoom.size === 0) {
+                            delete activeUsersInRooms[chatId];
+                            console.log(`Room ${chatId} is now empty and removed from activeUsersInRooms`);
+                        }
+                    }
+                }
+            });
+
+            socket.on('openChat', async (chatId, userId) => {
+                console.log('open chat called')
+                const unreadMessages = await ChatMessage.findOne({
+                    chatId,
+                    senderId: { $ne: userId },
+                    isRead: false
+                });
+
+
+                if (!unreadMessages) {
+                    return;
+                }
+
+                await ChatMessage.updateMany(
+                    {
+                        chatId,
+                        senderId: { $ne: userId },
+                        isRead: false
+                    },
+                    {
+                        isRead: true
+                    }
+                );
+
+                await Chat.findByIdAndUpdate(chatId, {
+                    unreadCount: 0
+                });
+                socket.emit('updatedMessageStatus',chatId)
+            })
+
+
+
+            //video call events
+       
+            handleCallEvents(socket, io, rooms);
+
+
+            socket.on("disconnect", () => { 
+                console.log('disconnected ');
                 if (userId) {
                     const userIndex = onlineUsers.findIndex(user => user.userId === userId);
                     if (userIndex !== -1) {
                         onlineUsers[userIndex].isOnline = false;
                         onlineUsers[userIndex].lastActive = new Date().toISOString();
-                        onlineUsers[userIndex].userId=userId
-                     }
+                        onlineUsers[userIndex].userId = userId;
+                    }
+                    for (const chatId in activeUsersInRooms) {
+                        const usersInRoom = activeUsersInRooms[chatId];
+                        if (usersInRoom) {
+                            usersInRoom.delete(userId);
+                            console.log(`User ${userId} removed from room when disconnected ${chatId}`);
+                            if (usersInRoom.size === 0) {
+                                delete activeUsersInRooms[chatId];
+                                console.log(`Room ${chatId} is now empty and removed from activeUsersInRooms`);
+                            }
+                        }
+                    }
+
+
                     io.emit("userStatus", onlineUsers);
-                } 
-            });  
-        
+                }
 
-    
+
+            });
+
+
+
+
+
         });
-                    // console.log(onlineUsers, 'online users')
+        // console.log(onlineUsers, 'online users')
 
- 
+
     } catch (error) {
         console.log(error);
     }

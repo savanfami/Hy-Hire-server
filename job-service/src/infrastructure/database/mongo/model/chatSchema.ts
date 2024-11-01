@@ -16,6 +16,9 @@ const chatSchema: Schema<ChatEntity> = new Schema(
     },
     unreadCount:{
       type:Number
+    },
+    messageSender:{
+      type:Schema.Types.ObjectId
     }
   },
   { timestamps: true }

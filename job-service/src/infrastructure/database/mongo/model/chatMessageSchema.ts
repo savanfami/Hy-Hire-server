@@ -9,16 +9,15 @@ const chatMessageSchema: Schema<ChatMessageEntity> = new Schema(
     },
     senderId: {
       type: Schema.Types.ObjectId,
-     
     },
     audio: { type: String },
     isAudio: { type: Boolean, default: false },
     chatId: {
       type: Schema.Types.ObjectId,
-     
     },
     isRead:{
-      type:Boolean
+      type:Boolean,
+      default:false
     }
   },
   { timestamps: true }

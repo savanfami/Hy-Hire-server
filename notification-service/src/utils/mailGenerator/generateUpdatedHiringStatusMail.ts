@@ -5,7 +5,6 @@ config()
 
 export const generateApplicatonShortlistedMail = async (data: IUpdateStatusData): Promise<void> => {
     try {
-        console.log(data,'=============================================')
         const transporter = nodemailer.createTransport({
             host: process.env.MAIL_HOST,
             secure: false,

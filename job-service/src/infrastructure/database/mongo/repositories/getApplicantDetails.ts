@@ -40,6 +40,7 @@ export const getApplicantDetailsByJob=async(id:string):Promise<IApplicantDetails
                 hiringStatus: 1,
                 createdAt: 1,
                 resume: 1,
+                schedule:1
               },
             },
           ]);

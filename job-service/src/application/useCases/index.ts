@@ -18,4 +18,5 @@ export * from './Chat/getChatUsecase'
 export * from './Chat/createMessageUsecase'
 export * from './Chat/getChatUsecase'
 export * from './Chat/getMessageUsecase'
+export * from './getAdminDashboardDataUsecase'
  

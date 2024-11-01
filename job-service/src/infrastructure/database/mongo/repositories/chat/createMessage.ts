@@ -11,9 +11,12 @@ export const createMessage = async (data: ICreateMessagePayload): Promise<IMessa
             audio: data.audio || '', 
             isAudio, 
             chatId: data.chatId,
+            isRead:false
         })
         await Chat.findByIdAndUpdate(data.chatId, {
             lastMessage: data.message || data.audio, 
+            messageSender:data.senderId,
+            $inc:{unreadCount:1}
         });
         if (createMessage) {
             return createMessage;

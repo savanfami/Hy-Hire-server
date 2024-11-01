@@ -3,6 +3,7 @@ import { ErrorResponse } from "../../utils/common/ErrorResponse"
 import { Request, Response, NextFunction } from "express";
 import { IUpdateStatusPayload } from "utils/types/types";
 import hiringStatusUpdatingProducer from "../../infrastructure/kafka/producer/hiringStatusUpdatingProducer";
+import interviewSchedulerProducer from "../../infrastructure/kafka/producer/interviewSchedulerProducer";
 
 
 export const updateStatusController = (dependencies: IDependencies) => {
@@ -10,13 +11,17 @@ export const updateStatusController = (dependencies: IDependencies) => {
 
     return async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const { applicationId, hiringStatus, interviewDate ,interviewTime } = req.body;
+            const { applicationId, hiringStatus, interviewDate ,interviewTime,roomId } = req.body;
+            if(roomId){
+                console.log(roomId,'room id')
+            }
             if (!applicationId || !hiringStatus) {
                 throw ErrorResponse.badRequest('ApplicationId and status are required');
             }
             const payload:IUpdateStatusPayload = {
                 applicationId,
-                hiringStatus
+                hiringStatus,
+                roomId
             };
 
             if (hiringStatus === 'shortlisted' && interviewDate && interviewTime ) {
@@ -30,6 +35,12 @@ export const updateStatusController = (dependencies: IDependencies) => {
                     await hiringStatusUpdatingProducer(result)
                 }catch{
                   throw ErrorResponse.internalError('failed to send update status mail producer')
+                }
+            }else if(result.hiringStatus==='interview'){
+                try {
+                    await interviewSchedulerProducer(result)
+                } catch (error) {
+                    throw ErrorResponse.internalError('failed to send update status mail producer')
                 }
             }
             return res.status(200).json(result);

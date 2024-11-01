@@ -134,6 +134,7 @@ export interface IApplicantDetails {
   education?: IEducation[]
   experiences: IExperiences[];
   createdAt: string;
+  schedule:any
 }
 
 export interface IUpdateStatusPayload {
@@ -141,10 +142,12 @@ export interface IUpdateStatusPayload {
   hiringStatus: string;
   interviewDate?: Date
   interviewTime?: string
+  roomId?:string
 }
 
 export interface IUpdateStatusResponse {
   _id?: string;
+  roomId?:string;
   hiringStatus: string;
   schedule: {
     interviewDate: Date;
@@ -214,6 +217,7 @@ export interface IgetChatResponse {
   _id?: string
   lastMessage?:any
   recieverId:string
+  messageSender:string;
   companyData: {
     name: string;
     icon: string;
@@ -227,6 +231,7 @@ export interface ICreateMessagePayload{
   message?:any;
   chatId:string;
   audio?:any
+  role:string
 }
 
 
@@ -242,3 +247,22 @@ export interface IMessageResponse {
   updatedAt: Date;
   isRead?: boolean;
 }
+
+
+export interface IMonthlyData {
+  name: string;
+  users: number;
+  companies: number;
+  jobs: number;
+  hired: number;
+}
+
+export interface IDashboardStats {
+  totalUsers: number;
+  totalCompanies: number;
+  totalJobs: number;
+  totalHired: number;
+  monthlyData: IMonthlyData[];
+}
+
+

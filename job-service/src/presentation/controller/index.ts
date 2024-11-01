@@ -18,6 +18,7 @@ import { getApplicationDetailsController } from "./getApplicationDetails";
 import { getChatController } from "./chatController/getChatController";
 import { createMessageController } from "./chatController/createMessageController";
 import { getMessageController } from "./chatController/getMessages";
+import { getAdminDashboardController } from "./adminChartController";
 
 
 export const controller=(dependencies:IDependencies)=>{
@@ -37,11 +38,14 @@ export const controller=(dependencies:IDependencies)=>{
         getApplication:getApplicationByUserController(dependencies),
         getApplicationDetails:getApplicationDetailsController(dependencies),
         getCount:getCountController(dependencies),
+        getAdminDashboard:getAdminDashboardController(dependencies),
 
         //chat controllers
         createChat:createChatController(dependencies),
         getChat:getChatController(dependencies),
         createMessage:createMessageController(dependencies),
         getMessages:getMessageController(dependencies),
+
+
     }
 }

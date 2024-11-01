@@ -12,11 +12,10 @@ export const updateStatus = async (payload: IUpdateStatusPayload): Promise<any |
         }
         const updateData: {
             hiringStatus: string; interviewDate?: Date; interviewTime?: string, schedule?: {
-                interviewDate: Date;
-                interviewTime: string;
-                status: string;
-                roomId: string;
-                feedback: string
+                interviewDate?: Date;
+                interviewTime?: string;
+                roomId?: string;
+                status?:string
             }
         } = {
             hiringStatus: payload.hiringStatus,
@@ -25,17 +24,17 @@ export const updateStatus = async (payload: IUpdateStatusPayload): Promise<any |
             updateData.schedule = {
                 interviewDate: payload.interviewDate,
                 interviewTime: payload.interviewTime,
-                status: 'pending',
                 roomId: '',
-                feedback: ''
+                status:'pending'
             };
-        } else if (payload.hiringStatus === 'interview') {
+        } else if (payload.hiringStatus === 'interview' && payload.roomId) {
+            updateData.schedule = {
+                interviewDate:applicant.schedule?.interviewDate as Date,
+                interviewTime:applicant.schedule?.interviewTime as string,
+                status: 'confirmed',
+                roomId: payload.roomId || ''
+            };
 
-            // updateData.schedule = {
-            //     ...applicant.schedule, 
-            //     status: 'confirmed', 
-            //     roomId: payload.roomId
-            // };
         }
         const updateStatus = await applicantModel.findByIdAndUpdate(
             payload.applicationId,
@@ -45,7 +44,7 @@ export const updateStatus = async (payload: IUpdateStatusPayload): Promise<any |
             { new: true }
         )
 
-        if (updateStatus && updateStatus.hiringStatus === 'shortlisted') {
+        if (updateStatus && updateStatus.hiringStatus === 'shortlisted'||updateStatus && updateStatus.hiringStatus==='interview') {
             const ObjectId = new mongoose.Types.ObjectId(payload.applicationId)
             const result = await applicantModel.aggregate([
                 {
@@ -100,6 +99,8 @@ export const updateStatus = async (payload: IUpdateStatusPayload): Promise<any |
                         hiringStatus: 1,
                         'schedule.interviewDate': 1,
                         'schedule.interviewTime': 1,
+                        'schedule.roomId':1,
+                        'schedule.status':1,
                         'userDetails.name': 1,
                         'userDetails.email': 1,
                         'companyDetails.name': 1,

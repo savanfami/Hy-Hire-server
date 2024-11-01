@@ -5,7 +5,6 @@ import { IUpdateStatusData } from "utils/mailGenerator/Types"
 
 export default async (data:IUpdateStatusData):Promise<void>=>{
     try{
- 
       await generateApplicatonShortlistedMail(data)
     }catch(error){
         console.log(error)
