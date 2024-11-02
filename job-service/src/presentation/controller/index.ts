@@ -19,6 +19,9 @@ import { getChatController } from "./chatController/getChatController";
 import { createMessageController } from "./chatController/createMessageController";
 import { getMessageController } from "./chatController/getMessages";
 import { getAdminDashboardController } from "./adminChartController";
+import { getCompanyDashboardController } from "./companyDashboardController";
+import { getUserDashboardController } from "./userDashboardController";
+import { getInterviewStatusController } from "./getInterviewStatusController";
 
 
 export const controller=(dependencies:IDependencies)=>{
@@ -39,12 +42,16 @@ export const controller=(dependencies:IDependencies)=>{
         getApplicationDetails:getApplicationDetailsController(dependencies),
         getCount:getCountController(dependencies),
         getAdminDashboard:getAdminDashboardController(dependencies),
+        getCompanyDashboard:getCompanyDashboardController(dependencies),
+        getUserDashboard:getUserDashboardController(dependencies),
+        interviewSchedule:getInterviewStatusController(dependencies),
 
         //chat controllers
         createChat:createChatController(dependencies),
         getChat:getChatController(dependencies),
         createMessage:createMessageController(dependencies),
         getMessages:getMessageController(dependencies),
+
 
 
     }

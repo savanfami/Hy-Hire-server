@@ -6,7 +6,7 @@ const jobSchema=new mongoose.Schema({
     jobDescription:String,
     joblocation:String,
     salaryMin:Number,
-    salaryMax:Number,
+    salaryMax:Number,   
     endDate:Date,
     companyId:{
         type:mongoose.Schema.Types.ObjectId,

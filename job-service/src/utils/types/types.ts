@@ -266,3 +266,60 @@ export interface IDashboardStats {
 }
 
 
+export interface DashboardStatistics  {
+  jobsStatistics: {
+    totalJobs: number;
+    expiredJobs: number;
+  };
+  applicantsStatistics: {
+    totalApplicants: number;
+    todayInterviews: {
+      hiringStatus: string;
+      candidateName:string;
+      jobTitle: string;
+      interviewDate: Date;
+      interviewTime:string;
+      status:string;
+    }[];
+    applicationsByStatus: {
+      _id: string;
+      count: number;
+    }[];
+    monthlyApplications: {
+      month: string;
+      year:number;
+      count: number;
+    }[];
+  };
+};
+
+
+export interface IUserDashboardResponse {
+  totalApplications: number;
+  interviewsScheduled: number;
+  savedJobsCount: number;
+  applicationStatusDistribution: {
+    status: string;
+    count: number;
+  }[];
+  monthlyApplications: {
+    month: string;
+    applications: number;
+  }[];
+  jobTypeApplications: {
+    type: string;
+    applications: number;
+  }[]
+  todayInterviews:{
+    interviewTime:string;
+    jobTitle:string;
+    companyName:string;
+  }[]
+}
+
+export interface IgetInterviewStatus{
+  interviewTime:string;
+  interviewDate:Date;
+  status:string;
+  roomId:string;
+}

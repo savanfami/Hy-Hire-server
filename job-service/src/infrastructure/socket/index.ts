@@ -94,6 +94,7 @@ const connectSocketIo = (server: Server) => {
                                         {new:true}
                                     );
                                     socket.emit('updatedMessageStatus',chatId)
+                                    console.log('emittted 000')
                                 } else {
                                     io.emit("unreadCountUpdated", {
                                         chatId,

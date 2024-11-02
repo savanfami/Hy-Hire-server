@@ -3,7 +3,6 @@ import { Chat } from "../../model/chatSchema";
 
 export const createChat = async (data: IChatpayload): Promise<boolean> => {
     try {
-        console.log(data);
         let chat = await Chat.findOne({
             senderId: data.senderId,
             recieverId: data.recieverId

@@ -35,6 +35,13 @@ export const updateStatus = async (payload: IUpdateStatusPayload): Promise<any |
                 roomId: payload.roomId || ''
             };
 
+        }else if (payload.hiringStatus==='hired' ||payload.hiringStatus==='rejected'){
+            updateData.schedule={
+                interviewDate:applicant.schedule?.interviewDate as Date,
+                interviewTime:applicant.schedule?.interviewTime as string,
+                status:'completed',
+                roomId:applicant.schedule?.roomId as string,
+            }
         }
         const updateStatus = await applicantModel.findByIdAndUpdate(
             payload.applicationId,
