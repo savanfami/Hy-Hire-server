@@ -145,18 +145,18 @@ const connectSocketIo = (server: Server) => {
 
             socket.on('openChat', async (chatId, userId) => {
                 console.log('open chat called')
-                const unreadMessages = await ChatMessage.findOne({
+                const unreadMessages = await ChatMessage.find({
                     chatId,
                     senderId: { $ne: userId },
                     isRead: false
                 });
 
-
+console.log(unreadMessages,'unread messges')
                 if (!unreadMessages) {
                     return;
                 }
 
-                await ChatMessage.updateMany(
+              await ChatMessage.updateMany(
                     {
                         chatId,
                         senderId: { $ne: userId },
@@ -170,7 +170,7 @@ const connectSocketIo = (server: Server) => {
                 await Chat.findByIdAndUpdate(chatId, {
                     unreadCount: 0
                 });
-                socket.emit('updatedMessageStatus',chatId)
+                socket.emit('updatedMessage',chatId)
             })
 
 
