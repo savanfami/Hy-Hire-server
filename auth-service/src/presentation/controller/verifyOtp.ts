@@ -34,7 +34,7 @@ export const verifyOtpController = (dependencies: IDependencies) => {
         try{
             await usercreatedProducer(data)
             console.log('user created producer sending')
-            const token = generateToken({ _id: `${data?._id}`, email: data?.email, role: String(data?.role), exp:Math.floor(Date.now()/1000)+(24*60*60) ?? '' })
+            const token = generateToken({ _id: `${data?._id}`, email: data?.email, role: String(data?.role), exp:Math.floor(Date.now()/1000)+(24*60*60)})
             console.log(token,'jwt token')
             res.cookie('access_token', token, {
               maxAge: 24 * 60 * 60 * 1000,
@@ -54,8 +54,6 @@ export const verifyOtpController = (dependencies: IDependencies) => {
             return res.json({success:false,message:"something wrong in user creation"})
         }
       }
-      
-      
     } catch (error:any) {
       
       next(error);

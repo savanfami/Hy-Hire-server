@@ -22,3 +22,23 @@ export const getInterviewStatusController = (dependencies: IDependencies) => {
         }
     }
 }
+
+
+
+
+
+export const getUserInterviewScheduleController = (dependencies: IDependencies) => {
+    const { useCases: { getUserInterviewSchedulesUsecase } } = dependencies
+    return async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const userId=req.user?._id as string
+            const response = await getUserInterviewSchedulesUsecase(dependencies).execute(userId)
+            if (!response) {
+                throw ErrorResponse.internalError('internal server error')
+            }
+            return res.status(200).json(response)
+        } catch (error) {
+            next(error)
+        }
+    }
+}

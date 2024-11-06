@@ -46,8 +46,8 @@ const connectSocketIo = (server: Server) => {
                 io.emit('userStatus', onlineUsers);
             });
 
-           
-       
+
+
 
             // io.emit('getOnlineStatus',)
 
@@ -74,6 +74,7 @@ const connectSocketIo = (server: Server) => {
                     io.to(chatId).emit("receiveMessage", data);
                     try {
                         const updatedChat = await Chat.findById(chatId);
+                        console.log(updatedChat,'update chat')
                         if (updatedChat) {
                             const senderId = updatedChat.messageSender.toString()
                             const usersInRoom = activeUsersInRooms[chatId];
@@ -91,10 +92,10 @@ const connectSocketIo = (server: Server) => {
                                         {
                                             isRead: true
                                         },
-                                        {new:true}
+                                        { new: true }
                                     );
-                                    socket.emit('updatedMessageStatus',chatId)
-                                    console.log('emittted 000')
+                                    socket.emit('updatedMessageStatus', chatId)
+                                    socket.emit('lastMessageUpdated',{chatId,messageSender:updatedChat.messageSender,lastMessage:updatedChat.lastMessage})
                                 } else {
                                     io.emit("unreadCountUpdated", {
                                         chatId,
@@ -144,19 +145,17 @@ const connectSocketIo = (server: Server) => {
             });
 
             socket.on('openChat', async (chatId, userId) => {
-                console.log('open chat called')
                 const unreadMessages = await ChatMessage.find({
                     chatId,
                     senderId: { $ne: userId },
-                    isRead: false
+                    isRead: false   
                 });
 
-console.log(unreadMessages,'unread messges')
-                if (!unreadMessages) {
-                    return;
-                }
-
-              await ChatMessage.updateMany(
+                console.log(unreadMessages, 'unread messges')
+                // if (unreadMessages.length===0) {
+                //     return;
+                // }
+                await ChatMessage.updateMany(
                     {
                         chatId,
                         senderId: { $ne: userId },
@@ -167,21 +166,24 @@ console.log(unreadMessages,'unread messges')
                     }
                 );
 
-                await Chat.findByIdAndUpdate(chatId, {
-                    unreadCount: 0
-                });
-                socket.emit('updatedMessage',chatId)
+
+                await Chat.findOneAndUpdate(
+                    { _id: chatId, messageSender: { $ne: userId } },
+                    { unreadCount: 0 }, 
+                    { new: true } 
+                  );
+                socket.emit('updatedMessage', chatId)
+                console.log('emitted')
             })
 
 
 
             //video call events
-       
+
             handleCallEvents(socket, io, rooms);
 
 
-            socket.on("disconnect", () => { 
-                console.log('disconnected ');
+            socket.on("disconnect", () => {
                 if (userId) {
                     const userIndex = onlineUsers.findIndex(user => user.userId === userId);
                     if (userIndex !== -1) {

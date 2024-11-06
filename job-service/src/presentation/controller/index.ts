@@ -21,7 +21,8 @@ import { getMessageController } from "./chatController/getMessages";
 import { getAdminDashboardController } from "./adminChartController";
 import { getCompanyDashboardController } from "./companyDashboardController";
 import { getUserDashboardController } from "./userDashboardController";
-import { getInterviewStatusController } from "./getInterviewStatusController";
+import { getInterviewStatusController, getUserInterviewScheduleController } from "./getInterviewStatusController";
+import { rescheduleInterviewController } from "./rescheduleInterviewController";
 
 
 export const controller=(dependencies:IDependencies)=>{
@@ -45,7 +46,9 @@ export const controller=(dependencies:IDependencies)=>{
         getCompanyDashboard:getCompanyDashboardController(dependencies),
         getUserDashboard:getUserDashboardController(dependencies),
         interviewSchedule:getInterviewStatusController(dependencies),
-
+        getScheduledInterview:getUserInterviewScheduleController(dependencies),
+        rescheduleInterview:rescheduleInterviewController(dependencies),
+        
         //chat controllers
         createChat:createChatController(dependencies),
         getChat:getChatController(dependencies),

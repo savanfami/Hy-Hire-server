@@ -22,4 +22,6 @@ export * from './getAdminDashboardDataUsecase'
 export * from './getCompanyDashboardUsecase' 
 export * from './getUserDashboardUsecase'
 export * from  './getInterviewStatusUsecase'
+export * from  './getUserInterviewSchedulesUsecase'
+export * from  './rescheduleInterviewUsecase'
  

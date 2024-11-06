@@ -12,8 +12,14 @@ const applicantSchema = new mongoose.Schema({
       roomId: { type: String },
       interviewTime: { type: String },
       status: { type: String, default: 'pending' },
+      reschedule: {
+        reason: { type: String },
+        newDate: { type: Date },
+        newTime: { type: String },
+        status:{type:String,enum:['requested','approved','rejected']}
+      },
     },
-
+    
 },
 { timestamps: true })
 

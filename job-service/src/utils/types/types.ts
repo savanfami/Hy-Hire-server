@@ -134,7 +134,7 @@ export interface IApplicantDetails {
   education?: IEducation[]
   experiences: IExperiences[];
   createdAt: string;
-  schedule:any
+  schedule: any
 }
 
 export interface IUpdateStatusPayload {
@@ -142,12 +142,12 @@ export interface IUpdateStatusPayload {
   hiringStatus: string;
   interviewDate?: Date
   interviewTime?: string
-  roomId?:string
+  roomId?: string
 }
 
 export interface IUpdateStatusResponse {
   _id?: string;
-  roomId?:string;
+  roomId?: string;
   hiringStatus: string;
   schedule: {
     interviewDate: Date;
@@ -215,29 +215,29 @@ export interface IGetApplicationDetailsResponse {
 
 export interface IgetChatResponse {
   _id?: string
-  lastMessage?:any
-  recieverId:string
-  messageSender:string;
+  lastMessage?: any
+  recieverId: string
+  messageSender: string;
   companyData: {
     name: string;
     icon: string;
-    _id?:string;
+    _id?: string;
   }
 }
 
 
-export interface ICreateMessagePayload{
-  senderId:string;
-  message?:any;
-  chatId:string;
-  audio?:any
-  role:string
+export interface ICreateMessagePayload {
+  senderId: string;
+  message?: any;
+  chatId: string;
+  audio?: any
+  role: string
 }
 
 
 
 export interface IMessageResponse {
-  _id: Types.ObjectId;  
+  _id: Types.ObjectId;
   message: string;
   senderId: Types.ObjectId;
   audio: string;
@@ -266,7 +266,7 @@ export interface IDashboardStats {
 }
 
 
-export interface DashboardStatistics  {
+export interface DashboardStatistics {
   jobsStatistics: {
     totalJobs: number;
     expiredJobs: number;
@@ -275,11 +275,11 @@ export interface DashboardStatistics  {
     totalApplicants: number;
     todayInterviews: {
       hiringStatus: string;
-      candidateName:string;
+      candidateName: string;
       jobTitle: string;
       interviewDate: Date;
-      interviewTime:string;
-      status:string;
+      interviewTime: string;
+      status: string;
     }[];
     applicationsByStatus: {
       _id: string;
@@ -287,7 +287,7 @@ export interface DashboardStatistics  {
     }[];
     monthlyApplications: {
       month: string;
-      year:number;
+      year: number;
       count: number;
     }[];
   };
@@ -310,16 +310,43 @@ export interface IUserDashboardResponse {
     type: string;
     applications: number;
   }[]
-  todayInterviews:{
-    interviewTime:string;
-    jobTitle:string;
-    companyName:string;
+  todayInterviews: {
+    interviewTime: string;
+    jobTitle: string;
+    companyName: string;
   }[]
 }
 
-export interface IgetInterviewStatus{
-  interviewTime:string;
-  interviewDate:Date;
-  status:string;
-  roomId:string;
+export interface IgetInterviewStatus {
+  interviewTime: string;
+  interviewDate: Date;
+  status: string;
+  roomId: string;
+  reschedule?:{
+    status:string;
+    reason:string
+  }
+}
+
+export interface IgetUserInteviewSchedules {
+  schedule: {
+    interviewDate: Date;
+    interviewTime: string;
+    reschedule:{
+      status?:string;
+    }
+  },
+  companyDetails: {
+    name: string;
+  },
+  jobDetails: {
+    jobTitle: string
+  }
+}
+
+
+export interface IRescheduleInterviewPayload{
+reason:string;
+interviewId:string;
+userId?:string
 }

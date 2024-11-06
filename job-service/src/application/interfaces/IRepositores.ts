@@ -1,6 +1,6 @@
 import { jobEntity, JobResponse } from "domain/entities";
 import { UserEntity } from "domain/entities/userEntity";
-import { DashboardStatistics, getalljobInterface, getApplicationPayload, IApplicantDetails, IChatpayload, ICountResponse, ICreateMessagePayload, IDashboardStats, IGetApplicationDetailsResponse, IgetChatResponse, IgetInterviewStatus, IGetUserApplicationResponse, IJobFilterParams, IMessageResponse, IUpdateStatusPayload, IUserDashboardResponse } from "utils/types/types";
+import { DashboardStatistics, getalljobInterface, getApplicationPayload, IApplicantDetails, IChatpayload, ICountResponse, ICreateMessagePayload, IDashboardStats, IGetApplicationDetailsResponse, IgetChatResponse, IgetInterviewStatus, IGetUserApplicationResponse, IgetUserInteviewSchedules, IJobFilterParams, IMessageResponse, IRescheduleInterviewPayload, IUpdateStatusPayload, IUserDashboardResponse } from "utils/types/types";
 
 
 export interface IRepositories{
@@ -19,13 +19,16 @@ export interface IRepositories{
     getApplicationsByUser(data:getApplicationPayload):Promise<IGetUserApplicationResponse|null>
     getCount():Promise<ICountResponse|null>
     getApplicationDetails(id:string):Promise<IGetApplicationDetailsResponse|null>
+    getAdminDashboardData():Promise<IDashboardStats|null>
+    getCompanyDashboardData(id:string):Promise<DashboardStatistics|null>
+    getUserDashboardData(id:string):Promise<IUserDashboardResponse|null>
+    interviewSchedule(id:string):Promise<IgetInterviewStatus|null>
+    getUserinterviewSchedules(userId:string):Promise<IgetUserInteviewSchedules[]|null>
+    rescheduleInterview(data:IRescheduleInterviewPayload):Promise<boolean|null>
 
     createChat(data:IChatpayload):Promise<boolean|null>
     getChat(userId:string,role:string):Promise<IgetChatResponse[]|null>
     createMessage(data:ICreateMessagePayload):Promise<IMessageResponse|null>
     getMessages(chatId:string):Promise<IMessageResponse[]|null>
-    getAdminDashboardData():Promise<IDashboardStats|null>
-    getCompanyDashboardData(id:string):Promise<DashboardStatistics|null>
-    getUserDashboardData(id:string):Promise<IUserDashboardResponse|null>
-    interviewSchedule(id:string):Promise<IgetInterviewStatus|null>
+
 }

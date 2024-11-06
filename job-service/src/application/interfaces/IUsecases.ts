@@ -11,8 +11,11 @@ import {
     IgetCompanyDashboardData,
     IgetUserDashboardDataUsecase,
     IgetInterviewStatusUsecase,
-    
-    
+    IgetUserInterviewSchedulesUsecase,
+    IRescheduleInterviewUsecase
+
+
+
 } from "domain/useCaseInterface";
 
 
@@ -35,9 +38,11 @@ export interface IUseCases {
     getApplicationDetailsUsecase: (dependencies: IDependencies) => IgetApplicationDetailsUsecase
     getChatUsecase: (dependencies: IDependencies) => IgetChatUsecase
     createMessageUsecase: (dependencies: IDependencies) => ICreateMessageUsecase
-    getMessagesUsecase:(dependencies:IDependencies)=>IgetMessageUsecase
-    getAdminDashboardDataUsecase:(dependencies:IDependencies)=>IgetAdminDashboardData
-    getCompanydashboardDataUsecase:(dependencies:IDependencies)=>IgetCompanyDashboardData
-    getUserdashboardDataUsecase:(dependencies:IDependencies)=>IgetUserDashboardDataUsecase
-    getInterviewStatusUsecase:(dependencies:IDependencies)=>IgetInterviewStatusUsecase
+    getMessagesUsecase: (dependencies: IDependencies) => IgetMessageUsecase
+    getAdminDashboardDataUsecase: (dependencies: IDependencies) => IgetAdminDashboardData
+    getCompanydashboardDataUsecase: (dependencies: IDependencies) => IgetCompanyDashboardData
+    getUserdashboardDataUsecase: (dependencies: IDependencies) => IgetUserDashboardDataUsecase
+    getInterviewStatusUsecase: (dependencies: IDependencies) => IgetInterviewStatusUsecase
+    getUserInterviewSchedulesUsecase: (dependencies: IDependencies) => IgetUserInterviewSchedulesUsecase
+    rescheduleInterviewUsecase: (dependencies: IDependencies) =>IRescheduleInterviewUsecase
 }
