@@ -25,7 +25,6 @@ export default async (data:companyCreatedPayload)=>{
         })
 
         await company.save()
-
     }catch(error:any){
          throw new Error(error.message)
     }
