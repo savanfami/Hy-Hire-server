@@ -20,6 +20,3 @@ export interface UserEntity{
     createdAt?:Date
 }
 
-export interface UpdateUserEntity{
-
-}
