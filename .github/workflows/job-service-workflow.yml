@@ -35,4 +35,4 @@ jobs:
           context: ./job-service/
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: savan1239/job-service:latest
+          tags: savan1239/hy-hire-job-service:latest

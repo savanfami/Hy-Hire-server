@@ -35,4 +35,4 @@ jobs:
           context: ./user-service/
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: savan1239/user-service:latest
+          tags: savan1239/hy-hire-user-service:latest

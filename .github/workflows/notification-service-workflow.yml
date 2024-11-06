@@ -35,4 +35,4 @@ jobs:
           context: ./notification-service/
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: savan1239/notification-service:latest
+          tags: savan1239/hy-hire-notification-service:latest

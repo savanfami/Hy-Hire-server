@@ -35,4 +35,4 @@ jobs:
           context: ./auth-service/
           platforms: linux/amd64,linux/arm64
           push: true
-          tags: savan1239/auth-service:latest
+          tags: savan1239/hy-hire-auth-service:latest
