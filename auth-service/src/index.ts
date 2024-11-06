@@ -1,4 +1,4 @@
-import * as server from "../src/presentation/server";
+import * as server from "./presentation/server";
 import { connectDB } from "./config/envConfig/config";
 (async () => {
   try {

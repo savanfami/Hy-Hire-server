@@ -1,4 +1,3 @@
-import { CompanyEntity } from "domain/entities";
 import { ICompanySearchParams, IPaginatedCompaniesResponse } from "utils/types/allTypes";
 
 

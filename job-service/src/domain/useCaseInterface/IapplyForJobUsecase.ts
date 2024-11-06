@@ -1,4 +1,3 @@
-import { getalljobInterface } from "utils/types/types";
 
 
 export interface IapplyForJobUsecase{
