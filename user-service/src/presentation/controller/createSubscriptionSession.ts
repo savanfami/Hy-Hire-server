@@ -3,11 +3,13 @@ import Stripe from "stripe";
 import { config } from 'dotenv';
 import { Subscription } from "../../infrastructure/database/mongodb/model/subscriptionModel";
 config();
-// const secret=process.env.STRIPE.SECRET_KEY as string
-// console.log(secret)
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
-  apiVersion: "2024-09-30.acacia",
+
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY as string, {
+  apiVersion: '2024-10-28.acacia',
 });
+// const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
+//   apiVersion: "2024-09-30.acacia",
+// });
 export const createSubscriptionSessionController = () => {
   return async (req: Request, res: Response, next: NextFunction) => {
     const { plan } = req.body;
