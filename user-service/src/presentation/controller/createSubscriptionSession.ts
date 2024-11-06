@@ -8,7 +8,6 @@ config();
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY as string, {
   apiVersion: "2024-09-30.acacia",
 });
-console.log('connected')
 export const createSubscriptionSessionController = () => {
   return async (req: Request, res: Response, next: NextFunction) => {
     const { plan } = req.body;
