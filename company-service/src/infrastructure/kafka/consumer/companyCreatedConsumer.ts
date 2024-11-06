@@ -25,7 +25,6 @@ export default async (data:companyCreatedPayload)=>{
         })
 
         await company.save()
-        console.log('company saved in company service')
 
     }catch(error:any){
          throw new Error(error.message)
