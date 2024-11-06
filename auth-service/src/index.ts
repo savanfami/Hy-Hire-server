@@ -5,7 +5,7 @@ import { connectDB } from "./config/envConfig/config";
     server;
     await connectDB();
   } catch (error) {
-    console.error("issues in running server", error);
+    console.error("issues in running server:", error);
     throw new Error("issues in running server");
   } finally {
     process.on("SIGINT", async () => {
