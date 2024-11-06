@@ -2,9 +2,15 @@ import { Request, Response, NextFunction } from "express";
 import mongoose from "mongoose";
 import Stripe from "stripe";
 import { Subscription } from "../../infrastructure/database/mongodb/model/subscriptionModel";
+import { config } from 'dotenv';
+config();
 
-const stripe = new Stripe('sk_test_51Q5fxNFYWf8ALHrOqy7YyHHv1oM6fRf8BaQMWnVXGeObjjaENgzKHXZ5N8TTa32hzzvRL93ZIWYkFLuVKFqcnWpt00tx5io3Ij' as string, {
-  apiVersion: "2024-09-30.acacia",
+// const stripe = new Stripe('sk_test_51Q5fxNFYWf8ALHrOqy7YyHHv1oM6fRf8BaQMWnVXGeObjjaENgzKHXZ5N8TTa32hzzvRL93ZIWYkFLuVKFqcnWpt00tx5io3Ij' as string, {
+//   apiVersion: "2024-09-30.acacia",
+// });
+
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY as string, {
+  apiVersion: '2024-10-28.acacia',
 });
 
 export const subscriptionWebhookController = () => {
