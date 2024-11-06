@@ -13,3 +13,4 @@ RUN npm run build
 EXPOSE 4006
 
 CMD [ "npm" , "start" ]
+
