@@ -1,4 +1,4 @@
-name: Build & Push company Service Docker Image
+name: Build & Push company Service Docker Images
 
 on:
   push:

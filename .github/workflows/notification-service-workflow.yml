@@ -1,4 +1,4 @@
-name: Build & Push notification Service Docker Image
+name: Build & Push notification Service Docker Image 
 
 on:
   push:

@@ -1,4 +1,4 @@
-name: Build & Push job Service Docker Image
+name: Build & Push job Service Docker Images
 
 on:
   push:
