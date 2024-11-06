@@ -23,12 +23,10 @@ export const verifyOtpController = (dependencies: IDependencies) => {
       };
 
       userEntity.password=await hashPassword(userEntity.password)
-      console.log(userEntity.password)
      
    
 
       const data = await verifyotpUsecase(dependencies).execute(userEntity);
-      console.log(data,'------');
       
       if(data){
         try{
