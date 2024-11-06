@@ -12,5 +12,6 @@ RUN npm run build
 
 EXPOSE 4001
 
+
 CMD [ "npm" , "start" ]
 
