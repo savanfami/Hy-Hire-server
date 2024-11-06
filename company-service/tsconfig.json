@@ -16,7 +16,7 @@
     "typeRoots": ["node_modules/@types"],
     "types": ["node"],
     "esModuleInterop": true,
-    "skipLibCheck": false,
+    "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true
   },
   "include": ["src/**/*"],
