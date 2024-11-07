@@ -23,6 +23,7 @@ import { getCompanyDashboardController } from "./companyDashboardController";
 import { getUserDashboardController } from "./userDashboardController";
 import { getInterviewStatusController, getUserInterviewScheduleController } from "./getInterviewStatusController";
 import { rescheduleInterviewController } from "./rescheduleInterviewController";
+import { updateRescheduleController } from "./updateRescheduleController";
 
 
 export const controller=(dependencies:IDependencies)=>{
@@ -48,6 +49,7 @@ export const controller=(dependencies:IDependencies)=>{
         interviewSchedule:getInterviewStatusController(dependencies),
         getScheduledInterview:getUserInterviewScheduleController(dependencies),
         rescheduleInterview:rescheduleInterviewController(dependencies),
+        updateReschedule:updateRescheduleController(dependencies),
         
         //chat controllers
         createChat:createChatController(dependencies),

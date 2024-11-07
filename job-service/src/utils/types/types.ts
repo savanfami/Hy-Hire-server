@@ -332,10 +332,10 @@ export interface IgetUserInteviewSchedules {
   schedule: {
     interviewDate: Date;
     interviewTime: string;
-    reschedule:{
-      status?:string;
-    }
   },
+  reschedule:{
+    status?:string;
+  }
   companyDetails: {
     name: string;
   },
@@ -350,3 +350,11 @@ reason:string;
 interviewId:string;
 userId?:string
 }
+
+
+export interface IUpdateRescheduleData{
+  id:string;
+  newDate?:Date;
+  newTime?:string;
+  status:string;
+} 

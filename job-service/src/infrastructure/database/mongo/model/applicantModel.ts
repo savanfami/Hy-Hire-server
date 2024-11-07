@@ -6,21 +6,19 @@ const applicantSchema = new mongoose.Schema({
   userId: { type: mongoose.Schema.Types.ObjectId, ref: 'user' },
   hiringStatus: { type: String, enum: ['in-review', 'shortlisted', 'interview', 'hired', 'rejected'], default: 'in-review' },
   resume: { type: String },
-  schedule: 
-    {
-      interviewDate: { type: Date },
-      roomId: { type: String },
-      interviewTime: { type: String },
-      status: { type: String, default: 'pending' },
-      reschedule: {
-        reason: { type: String },
-        newDate: { type: Date },
-        newTime: { type: String },
-        status:{type:String,enum:['requested','approved','rejected']}
-      },
-    },
-    
+  schedule:
+  {
+    interviewDate: { type: Date },
+    roomId: { type: String },
+    interviewTime: { type: String },
+    status: { type: String, default: 'pending' },
+  },
+  reschedule: {
+    reason: { type: String},
+    status: { type: String,default:'pending',enum: ['pending','requested', 'approved', 'rejected'] }
+  },
+
 },
-{ timestamps: true })
+  { timestamps: true })
 
 export const applicantModel = mongoose.model('applicant', applicantSchema) 

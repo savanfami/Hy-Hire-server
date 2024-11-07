@@ -2,7 +2,7 @@ import { IgetApplicationDetailsUsecase } from "domain/useCaseInterface/IgetAppli
 import { IDependencies } from "./IDependencies";
 import {
     IgetJobUsecase, IpostJobUsecase, IgetAllJobUsecase, IAddUserUsecase, IapplyForJobUsecase, IGetAllUserUsecase, IDeleteJobUsecase, IgetAllDataUsecase, IsaveJobUsecase, IsavedJobUsecase, IgetApplicantDetailsByJobUsecase,
-    IUpdateHiringStatusUsecase, IGetApplicationByUserUsecase, ICreateChatUsecase,
+    IUpdateHiringStatusUsecase, IGetApplicationByUserUsecase, ICreateChatUsecase,IupdateRescheduleUsecase,
     IGetCountUsecase,
     IgetChatUsecase,
     ICreateMessageUsecase,
@@ -44,5 +44,6 @@ export interface IUseCases {
     getUserdashboardDataUsecase: (dependencies: IDependencies) => IgetUserDashboardDataUsecase
     getInterviewStatusUsecase: (dependencies: IDependencies) => IgetInterviewStatusUsecase
     getUserInterviewSchedulesUsecase: (dependencies: IDependencies) => IgetUserInterviewSchedulesUsecase
-    rescheduleInterviewUsecase: (dependencies: IDependencies) =>IRescheduleInterviewUsecase
+    rescheduleInterviewUsecase: (dependencies: IDependencies) => IRescheduleInterviewUsecase
+    updateRescheduleUsecase:(dependencies:IDependencies)=>IupdateRescheduleUsecase
 }

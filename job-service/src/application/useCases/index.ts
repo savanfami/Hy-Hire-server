@@ -24,4 +24,5 @@ export * from './getUserDashboardUsecase'
 export * from  './getInterviewStatusUsecase'
 export * from  './getUserInterviewSchedulesUsecase'
 export * from  './rescheduleInterviewUsecase'
+export * from  './updateRescheduleUsecase'
  

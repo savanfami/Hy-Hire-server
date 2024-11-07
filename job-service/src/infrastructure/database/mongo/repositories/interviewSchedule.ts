@@ -13,12 +13,13 @@ export const interviewSchedule = async (id: string): Promise<IgetInterviewStatus
             },
             {
                 $project: {
+                    '_id':1,
                     'schedule.interviewDate': 1,
                     'schedule.interviewTime': 1,
                     'schedule.status': 1,
                     'schedule.roomId': 1,
-                    'schedule.reschedule.reason':1,
-                    'schedule.reschedule.status':1
+                    'reschedule.reason':1,
+                    'reschedule.status':1
                 }
             }
         ]);
@@ -75,7 +76,7 @@ export const getUserinterviewSchedules = async (id: string): Promise<IgetUserInt
                     'jobDetails.jobTitle': 1,      
                     'schedule.interviewDate': 1,
                     'schedule.interviewTime': 1,
-                    'schedule.reschedule.status':1
+                    'reschedule.status':1
                 }
             }
         ]);

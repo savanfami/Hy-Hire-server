@@ -1,6 +1,6 @@
 import { jobEntity, JobResponse } from "domain/entities";
 import { UserEntity } from "domain/entities/userEntity";
-import { DashboardStatistics, getalljobInterface, getApplicationPayload, IApplicantDetails, IChatpayload, ICountResponse, ICreateMessagePayload, IDashboardStats, IGetApplicationDetailsResponse, IgetChatResponse, IgetInterviewStatus, IGetUserApplicationResponse, IgetUserInteviewSchedules, IJobFilterParams, IMessageResponse, IRescheduleInterviewPayload, IUpdateStatusPayload, IUserDashboardResponse } from "utils/types/types";
+import { DashboardStatistics, getalljobInterface, getApplicationPayload, IApplicantDetails, IChatpayload, ICountResponse, ICreateMessagePayload, IDashboardStats, IGetApplicationDetailsResponse, IgetChatResponse, IgetInterviewStatus, IGetUserApplicationResponse, IgetUserInteviewSchedules, IJobFilterParams, IMessageResponse, IRescheduleInterviewPayload, IUpdateRescheduleData, IUpdateStatusPayload, IUserDashboardResponse } from "utils/types/types";
 
 
 export interface IRepositories{
@@ -25,6 +25,7 @@ export interface IRepositories{
     interviewSchedule(id:string):Promise<IgetInterviewStatus|null>
     getUserinterviewSchedules(userId:string):Promise<IgetUserInteviewSchedules[]|null>
     rescheduleInterview(data:IRescheduleInterviewPayload):Promise<boolean|null>
+    updateReschedule(data:IUpdateRescheduleData):Promise<boolean|null>
 
     createChat(data:IChatpayload):Promise<boolean|null>
     getChat(userId:string,role:string):Promise<IgetChatResponse[]|null>

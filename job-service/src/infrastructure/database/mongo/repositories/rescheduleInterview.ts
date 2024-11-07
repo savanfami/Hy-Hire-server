@@ -5,8 +5,8 @@ export const rescheduleInterview = async (data: IRescheduleInterviewPayload): Pr
     try {
         const rescheduleInterview = await applicantModel.findByIdAndUpdate(data.interviewId, {
             $set: {
-                'schedule.reschedule.reason': data.reason,
-                'schedule.reschedule.status':'requested'
+                'reschedule.reason': data.reason,
+                'reschedule.status':'requested'
             }
         })
         if (rescheduleInterview) {

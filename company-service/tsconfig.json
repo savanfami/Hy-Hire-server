@@ -14,9 +14,8 @@
     "moduleResolution": "node",
     "baseUrl": "./src",
     "typeRoots": ["node_modules/@types"],
-    "types": ["node"],
     "esModuleInterop": true,
-    "skipLibCheck": true,
+    "skipLibCheck": false,
     "forceConsistentCasingInFileNames": true
   },
   "include": ["src/**/*"],
