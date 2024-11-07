@@ -7,7 +7,6 @@ export const getAllCompanyController=(dependencies:IDependencies)=>{
     const{useCases:{getAllCompanyUsecase}}=dependencies
     return async(req:Request,res:Response,next:NextFunction)=>{
         try {
-            console.log(req.query,'params')
             const searchParams: ICompanySearchParams = {
                 name: (req.query.name as string) || '',
                 location: (req.query.location as string) || '',
