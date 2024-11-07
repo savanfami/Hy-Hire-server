@@ -21,5 +21,7 @@ import { startConsumer, stopConsumer } from './infrastructure/kafka/consumer/con
             process.exit();
         })
     }
-  
-})();
+    
+
+    
+})();   
