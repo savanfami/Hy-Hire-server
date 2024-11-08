@@ -28,7 +28,7 @@ if (process.env.NODE_ENV === 'development') {
     app.use(morgan('common', { stream: accessLogStream }));
 }
 
-app.use('/',router(dependencies))
+app.use('/api/auth',router(dependencies))
 
 app.use('*',(req:Request,res:Response)=>{
     res.status(404).json({success:false,message:'api not found',status:404})

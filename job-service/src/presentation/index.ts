@@ -30,7 +30,7 @@ if (process.env.NODE_ENV === 'development') {
 } else {
     app.use(morgan('common', { stream: accessLogStream }));
 }
-app.use('/', router(dependencies))
+app.use('/api/job', router(dependencies))
 app.use(errorHandler)
 app.use('*', (req: Request, res: Response) => {
     res.status(404).json({ success: false, message: 'api not found', status: 404 })

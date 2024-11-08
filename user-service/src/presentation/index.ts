@@ -41,7 +41,7 @@ app.use(cookieparser())
 
 
 
-app.use('/', router(dependencies))
+app.use('/api/user', router(dependencies))
 app.use('*', (req: Request, res: Response) => {
     res.status(404).json({ success: false, message: 'api not found', status: 404 })
 })
