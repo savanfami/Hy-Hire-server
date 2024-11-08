@@ -7,7 +7,7 @@ metadata:
     nginx.ingress.kubernetes.io/use-regex: "true"
     # cert-manager.io/cluster-issuer: letsencrypt-prod
     nginx.ingress.kubernetes.io/enable-cors: "true"
-    # nginx.ingress.kubernetes.io/cors-allow-origin: "https://publitech-client.vercel.app"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "https://hy-hire.vercel.app"
     # nginx.ingress.kubernetes.io/enable-access-log: "true" 
     nginx.ingress.kubernetes.io/websocket-services: "hy-hire-job-service"
 spec:

@@ -18,6 +18,7 @@ export const loginContoller = (dependencies: IDependencies) => {
                 const token = generateToken({ _id:`${result?._id}`, email: result?.email, role: String(result?.role), exp: Math.floor(Date.now() / 1000) + (24 * 60 * 60)})
                 res.cookie('access_token', token, {
                     maxAge: 24 * 60 * 60 * 1000,
+                     httpOnly: true, sameSite: 'none', secure: true,
                 })
 
                 return res.status(200).json({
