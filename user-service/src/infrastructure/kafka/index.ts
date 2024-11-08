@@ -2,7 +2,7 @@ import { Kafka,Producer,Consumer } from "kafkajs";
 
 const kafka=new Kafka({
     clientId:'user-service',
-    brokers:['localhost:29092'],  
+    brokers:['kafka:9093'],  
 })
 
 export const producer:Producer=kafka.producer()

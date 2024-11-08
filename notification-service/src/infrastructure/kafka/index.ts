@@ -4,7 +4,7 @@ import { Consumer,Kafka,Producer } from "kafkajs";
 
 export const kafka =new Kafka({
     clientId:'notification-service',
-    brokers:["localhost:29092"],
+    brokers:['kafka:9093'],  
 })
 
 export const producer:Producer=kafka.producer();
