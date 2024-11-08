@@ -11,6 +11,5 @@ export const getSubscriptionStatus = async (userId: string): Promise<ICheckSuscr
         }
     } catch (error: any) {
         throw new Error(`Failed to update profile: ${error.message}`);
-
     }
 }

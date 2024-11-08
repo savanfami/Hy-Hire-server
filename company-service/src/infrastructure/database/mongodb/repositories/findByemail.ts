@@ -13,7 +13,4 @@ export const findByEmail = async (email: string): Promise<CompanyEntity> => {
     } catch (error) {
         throw error
     }
-
-
-
 }

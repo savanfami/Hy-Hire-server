@@ -7,7 +7,6 @@ const getStartAndEndOfWeek = () => {
 
     firstDayOfWeek.setHours(0, 0, 0, 0);
     lastDayOfWeek.setHours(23, 59, 59, 999);
-    
     return { firstDayOfWeek, lastDayOfWeek };
 };
 
