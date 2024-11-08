@@ -20,7 +20,6 @@ export const updateRequestController = (dependencies: IDependencies) => {
                 updatePayload.reason = reason
             }
             const data = await updateRequestUsecase(dependencies).execute(companyId, updatePayload);
-            console.log(data,'dafdlfasdslfjfsdlfdflkdfdjlsdjflfsdjfasdfsdjlsfjsd')
             if (data) {
                 try {
                     await verificationMailProducer(data);

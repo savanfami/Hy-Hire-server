@@ -14,7 +14,6 @@ export const getAllCompanyController=(dependencies:IDependencies)=>{
                 page: parseInt(req.query.page as string, 10) || 1,  
               };
           const data=  await getAllCompanyUsecase(dependencies).execute(searchParams)
-          console.log(data,'getallcompanyies')
          if(data){
             return res.status(200).json({success:true,message:'data fetched successfully',data})
          }else{
