@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hy-hire-user-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hy-hire-user-service
+  template:
+    metadata:
+      labels:
+        app: hy-hire-user-service
+    spec:
+      containers:
+        - image: savan1239/hy-hire-user-service:latest
+          name: hy-hire-user-service
+          envFrom:
+            - configMapRef:
+                name: user-config
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hy-hire-user-service
+spec:
+  selector:
+    app: hy-hire-user-service
+  ports:
+    - protocol: TCP
+      port: 4006
+      targetPort: 4006
+ 
