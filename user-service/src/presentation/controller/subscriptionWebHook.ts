@@ -24,7 +24,7 @@ export const subscriptionWebhookController = () => {
       event = stripe.webhooks.constructEvent(
         req.body,
         stripeSignature.toString(),
-        'whsec_ebbb5b4f1913d986aa89a18304f78f0b3e76aa770796da7190fd4b53a61d25db'
+        'whsec_7mkiuFdhxKlJFvOOPEpVGRGQP6R7yW9g'
       )
     } catch (err) {
       return res.status(400).send(`Webhook Error: ${(err as Error).message}`);
