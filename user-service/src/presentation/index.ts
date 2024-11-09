@@ -22,7 +22,7 @@ const accessLogStream = fs.createWriteStream(path.join(logDirectory, 'access.log
 
 
 app.use((req, res, next) => {
-    if (req.originalUrl === '/webhook') {
+    if (req.originalUrl === '/api/user/webhook') {
       next();
     } else {
       express.json()(req, res, next);
