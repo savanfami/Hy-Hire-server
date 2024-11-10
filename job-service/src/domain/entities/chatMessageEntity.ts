@@ -10,7 +10,7 @@ export interface ChatMessageEntity extends Document {
   message: string;
   audio: string ; 
   chatId: Types.ObjectId; 
-  isAudio:boolean
+  isAudio:boolean;
   createdAt: Date; 
   updatedAt: Date;
   isRead?:boolean

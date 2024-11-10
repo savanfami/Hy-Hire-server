@@ -39,7 +39,7 @@ export const getUserinterviewSchedules = async (id: string): Promise<IgetUserInt
             {
                 $match: {
                     userId: userId,
-                    hiringStatus: 'shortlisted'
+                    hiringStatus: { $in: ['shortlisted', 'interview'] }
                 }
             },
             {
@@ -76,8 +76,10 @@ export const getUserinterviewSchedules = async (id: string): Promise<IgetUserInt
                     'jobDetails.jobTitle': 1,      
                     'schedule.interviewDate': 1,
                     'schedule.interviewTime': 1,
-                    'reschedule.status':1
-                }
+                    'reschedule.status':1,
+                    'schedule.roomId':1,
+                    'schedule.status':1
+                }   
             }
         ]);
          if(getData){
